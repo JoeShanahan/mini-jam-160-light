@@ -15,7 +15,7 @@ public enum AbilityType {
 public class PlayerController : MonoBehaviour {
 
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    public float desiredJumpHeight = 2f; // Desired jump height in units
     public int maxJumps = 2;
     public bool canDoubleJump = true;
     public int health = 1;
@@ -61,6 +61,8 @@ public class PlayerController : MonoBehaviour {
     private float accelerationProgress = 0f;
     public float accelerationTime = 2f;
 
+    private float jumpVelocity;
+
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -76,6 +78,8 @@ public class PlayerController : MonoBehaviour {
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
 
         _myCollider = GetComponent<Collider2D>();
+
+        jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
     void OnEnable() {
@@ -127,7 +131,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnJump() {
         if (isGrounded || (canDoubleJump && remainingJumps > 0)) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
             remainingJumps--;
         }
     }

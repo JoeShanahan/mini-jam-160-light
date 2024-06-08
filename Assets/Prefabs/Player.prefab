@@ -228,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 15
-  jumpForce: 25
+  desiredJumpHeight: 6
   maxJumps: 1
   canDoubleJump: 1
   health: 1
