@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f60a807b0d324b61a8a5e9999e2892b, type: 3}
   m_Name: Silver-CompleteGame-MediumTime
   m_EditorClassIdentifier: 
-  DisplayName: Beat the Game
+  DisplayName: Speed Walker
   Description: Complete all three worlds in under 90 seconds
   Rarity: 1
   IsTimeBased: 1

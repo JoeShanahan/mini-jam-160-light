@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour {
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
 
         _myCollider = GetComponent<Collider2D>();
-
+        
         jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
@@ -133,6 +133,7 @@ public class PlayerController : MonoBehaviour {
         if (isGrounded || (canDoubleJump && remainingJumps > 0)) {
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
             remainingJumps--;
+            isGrounded = false;
         }
     }
 

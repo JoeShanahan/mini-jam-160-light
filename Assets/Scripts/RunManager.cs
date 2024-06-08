@@ -9,6 +9,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] private PlayerState _playerState = new();
     [SerializeField] private GameUI _gameUI;
     [SerializeField] private LevelManager _levelManager;
+    [SerializeField] private TrophyManager _trophyManager;
     
     private bool _isActive = true;
     
@@ -65,6 +66,8 @@ public class RunManager : MonoBehaviour
         
         if (_runState.CurrentWorld == _worldCount)
             OnGameComplete();
+        
+        _trophyManager.CheckForTrophies(_runState, _playerState);
     }
 
     public void OnGameComplete()
