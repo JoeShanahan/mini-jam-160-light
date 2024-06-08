@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour {
     public LayerMask groundLayer;
     public int maxJumps = 2;
     public bool canDoubleJump = true;
+    public int health = 1;
 
     [SerializeField] private AbilityType _equippedAbility;
     [SerializeField] private AbilityData _abilityData;
@@ -50,14 +51,16 @@ public class PlayerController : MonoBehaviour {
 
     private EnemyController[] enemies;
     private MovingPlatform[] platforms;
+    private Crusher[] crushers;
 
     public GameObject bombPrefab;
     public Transform bombSpawnPoint;
+    public float explosionForce = 10f;
 
     public Collider2D CrushCheckTop;
     public Collider2D CrushCheckBottom;
 
-    private bool isCrushed = false; 
+    private bool isCrushed = false;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour {
 
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
         platforms = FindObjectsByType<MovingPlatform>(FindObjectsSortMode.None);
+        crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
     }
 
     void OnEnable() {
@@ -126,6 +130,20 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void TakeDamage(int damage, Vector2 explosionPosition) {
+        if (!isInvincible) {
+            health -= damage;
+
+            if (health <= 0) {
+                Die();
+            }
+        } else {
+            Vector2 explosionDirection = (transform.position - (Vector3)explosionPosition).normalized;
+            rb.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
+            Debug.Log("Bomb-jump shinanegans");
+        }
+    }
+
     void Die() {
         if (isInvincible) {
             Debug.Log("Player can't die, go wild!");
@@ -140,6 +158,7 @@ public class PlayerController : MonoBehaviour {
         transform.position = _respawnPoint;
         rb.velocity = Vector2.zero;
         isCrushed = false;
+        isInvincible = false;
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -191,6 +210,10 @@ public class PlayerController : MonoBehaviour {
 
         foreach (var platform in platforms) {
             platform.Freeze(time);
+        }
+
+        foreach (var crusher in crushers) {
+            crusher.Freeze(time);
         }
 
         StartCooldown(AbilityType.Freeze);
@@ -262,8 +285,7 @@ public class PlayerController : MonoBehaviour {
         isVerticalBoosting = false;
     }
 
-    public void SetSpawnPosition(Vector3 position)
-    {
+    public void SetSpawnPosition(Vector3 position) {
         _respawnPoint = position;
         transform.position = position;
     }

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3839311598825902477}
   - component: {fileID: 4859474954885743416}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,38 +87,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1708327175481630093
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8493329846253269699}
-  m_Layer: 0
-  m_Name: CrushCheckTop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8493329846253269699
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1708327175481630093}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7297804246787326989}
-  m_Father: {fileID: 5986554934098960622}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1900047508291369883
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +96,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1564664671193696567}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 161056364913879647}
   - component: {fileID: 7446556975551629581}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlayerGraphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +223,7 @@ GameObject:
   - component: {fileID: 3698844939105679035}
   - component: {fileID: 7876751387141923216}
   - component: {fileID: 7693713059115884860}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -277,8 +245,7 @@ Transform:
   m_Children:
   - {fileID: 161056364913879647}
   - {fileID: 1564664671193696567}
-  - {fileID: 8493329846253269699}
-  - {fileID: 8531697239986581239}
+  - {fileID: 158607329890889323}
   - {fileID: 5285510587253440786}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -300,8 +267,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
-  maxJumps: 2
+  maxJumps: 1
   canDoubleJump: 1
+  health: 1
   _equippedAbility: 0
   _abilityData: {fileID: 11400000, guid: db98e12522ec040bfb9b9c8b2b524d9f, type: 2}
   isGrounded: 0
@@ -311,6 +279,7 @@ MonoBehaviour:
   decelerationStrength: 8
   bombPrefab: {fileID: 6668987927851335791, guid: 4e5de56206668dc40b385c84c4525290, type: 3}
   bombSpawnPoint: {fileID: 5285510587253440786}
+  explosionForce: 80
   CrushCheckTop: {fileID: 2247452863598504067}
   CrushCheckBottom: {fileID: 492398901339448867}
 --- !u!210 &2913390537741170545
@@ -341,7 +310,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: c173161d2e7d315448fec490befbcf0f, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -474,7 +443,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5579714068286160059}
   - component: {fileID: 8495572686182159495}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7297804246787326989}
   - component: {fileID: 2247452863598504067}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CrushCheckTopCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -577,11 +546,11 @@ Transform:
   m_GameObject: {fileID: 6969640030711942593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.41, z: 0}
+  m_LocalPosition: {x: 0, y: 0.41000003, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8493329846253269699}
+  m_Father: {fileID: 158607329890889323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2247452863598504067
 BoxCollider2D:
@@ -629,6 +598,39 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.1}
   m_EdgeRadius: 0
+--- !u!1 &7661524353375215546
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158607329890889323}
+  m_Layer: 10
+  m_Name: CrushCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &158607329890889323
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7661524353375215546}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7297804246787326989}
+  - {fileID: 7134721203576333987}
+  m_Father: {fileID: 5986554934098960622}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7667086924700275585
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +641,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7134721203576333987}
   - component: {fileID: 492398901339448867}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: CrushCheckBottomCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -655,11 +657,11 @@ Transform:
   m_GameObject: {fileID: 7667086924700275585}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.55, z: 0}
+  m_LocalPosition: {x: 0, y: -0.54999995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8531697239986581239}
+  m_Father: {fileID: 158607329890889323}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &492398901339448867
 BoxCollider2D:
@@ -707,38 +709,6 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.1}
   m_EdgeRadius: 0
---- !u!1 &8077288436919079403
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8531697239986581239}
-  m_Layer: 0
-  m_Name: CrushCheckBottom
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8531697239986581239
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8077288436919079403}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7134721203576333987}
-  m_Father: {fileID: 5986554934098960622}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8507119603884921897
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +718,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5285510587253440786}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BombSpawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +750,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3817537567875237762}
   - component: {fileID: 6197999565496539614}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Up
   m_TagString: Untagged
   m_Icon: {fileID: 0}
