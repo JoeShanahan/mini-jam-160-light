@@ -298,7 +298,10 @@ public class PlayerController : MonoBehaviour {
     }
 
     private IEnumerator EndHorizontalBoostAfterTime(float duration) {
+        rb.gravityScale = 0;
+        rb.velocity = new Vector3(rb.velocity.x, 0, 0);
         yield return new WaitForSeconds(duration - 0.1f);
+        rb.gravityScale = 1;
         isHorizontalBoosting = false;
     }
 
