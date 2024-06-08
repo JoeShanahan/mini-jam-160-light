@@ -16,8 +16,6 @@ public class PlayerController : MonoBehaviour {
 
     public float moveSpeed = 5f;
     public float jumpForce = 10f;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
     public int maxJumps = 2;
     public bool canDoubleJump = true;
     public int health = 1;
@@ -29,9 +27,10 @@ public class PlayerController : MonoBehaviour {
     private Animator animator;
     private Vector2 moveInput;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isHeadache;
     private int remainingJumps;
     private InputSystem_Actions controls;
-    private Vector3 _respawnPoint;
+    [SerializeField] private Vector3 _respawnPoint;
 
     private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
@@ -57,10 +56,7 @@ public class PlayerController : MonoBehaviour {
     public Transform bombSpawnPoint;
     public float explosionForce = 10f;
 
-    public Collider2D CrushCheckTop;
-    public Collider2D CrushCheckBottom;
-
-    private bool isCrushed = false;
+    private Collider2D _myCollider;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -75,6 +71,8 @@ public class PlayerController : MonoBehaviour {
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
         platforms = FindObjectsByType<MovingPlatform>(FindObjectsSortMode.None);
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
+
+        _myCollider = GetComponent<Collider2D>();
     }
 
     void OnEnable() {
@@ -86,7 +84,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask("Destructible", "SpikePlatform", "MovingPlatform", "Crusher", "Ground"));
         if (isGrounded) {
             remainingJumps = maxJumps;
         }
@@ -119,8 +116,6 @@ public class PlayerController : MonoBehaviour {
                 abilityTimers.Remove(ability);
             }
         }
-
-        CrushCheck();
     }
 
     void OnJump() {
@@ -158,7 +153,6 @@ public class PlayerController : MonoBehaviour {
     void Respawn() {
         transform.position = _respawnPoint;
         rb.velocity = Vector2.zero;
-        isCrushed = false;
         isInvincible = false;
     }
 
@@ -175,6 +169,32 @@ public class PlayerController : MonoBehaviour {
         if (collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Enemy")) {
             isCollidingWithDanger = false;
         }
+    }
+
+    void OnCollisionStay2D(Collision2D other) {
+        var contactArray = new ContactPoint2D[16];
+
+        _myCollider.GetContacts(contactArray);
+
+        bool hasContactAbove = false;
+        bool hasContactBelow = false;
+
+        foreach (ContactPoint2D contact in contactArray) {
+            if (contact.point.magnitude < 0.1f)
+                continue;
+
+            if (contact.point.y > transform.position.y + 0.4f)
+                hasContactAbove = true;
+
+            if (contact.point.y < transform.position.y - 0.4f)
+                hasContactBelow = true;
+        }
+
+        isGrounded = hasContactBelow;
+        isHeadache = hasContactAbove;
+
+        if (hasContactAbove && hasContactBelow)
+            Debug.Log("Get crushed idiot");
     }
 
     public void DebugUseAbility(int ability) {
@@ -306,15 +326,6 @@ public class PlayerController : MonoBehaviour {
         isInvincible = false;
         if (isCollidingWithDanger) {
             Die();
-        }
-    }
-
-    private void CrushCheck() {
-        if (CrushCheckTop.IsTouchingLayers(LayerMask.GetMask("Crusher")) && CrushCheckBottom.IsTouchingLayers(LayerMask.GetMask("Crusher"))) {
-            if (!isCrushed) {
-                Die();
-                isCrushed = true;
-            }
         }
     }
 }
