@@ -5167,6 +5167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeUI: {fileID: 636031038}
   _endUI: {fileID: 0}
+  _trophyPips: {fileID: 0}
 --- !u!114 &1108462005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8148,7 +8149,8 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 1326803980}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3698844939105679035, guid: aa347d0950d0b6e44bcebcf928fd9c0c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -8,6 +8,7 @@ public class Destructible : MonoBehaviour {
         health -= damageAmount;
         if (health <= 0) {
             Destroy(gameObject);
+            StreamerCam.NotifyStreamer(StreamerEvent.ObjectDestroyed);
         }
     }
 }

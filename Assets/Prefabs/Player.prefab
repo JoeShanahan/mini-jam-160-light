@@ -244,6 +244,7 @@ MonoBehaviour:
   bombPrefab: {fileID: 6668987927851335791, guid: 4e5de56206668dc40b385c84c4525290, type: 3}
   bombSpawnPoint: {fileID: 5285510587253440786}
   explosionForce: 80
+  accelerationTime: 2
 --- !u!210 &2913390537741170545
 SortingGroup:
   m_ObjectHideFlags: 0
