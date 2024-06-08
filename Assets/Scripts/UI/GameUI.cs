@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameUI : MonoBehaviour
 {
     [SerializeField] private TimingUI _timeUI;
     [SerializeField] private LevelEndUI _endUI;
+    [SerializeField] private TrophyPipUI _trophyPips;
     
     public void UpdateTimes(RunState runState)
     {
@@ -18,5 +20,10 @@ public class GameUI : MonoBehaviour
     public void OnGameComplete(RunState run, PlayerState player)
     {
         _endUI.OnGameComplete(run, player);
+    }
+
+    public void InitTrophies(List<TrophyData> allTrophies)
+    {
+        _trophyPips.InitTrophies(allTrophies);
     }
 }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f60a807b0d324b61a8a5e9999e2892b, type: 3}
+  m_Name: Platinum-AllOtherTrophies
+  m_EditorClassIdentifier: 
+  DisplayName: Record Smasher
+  Description: You did everything!
+  Rarity: 3
+  IsTimeBased: 0
+  WorldNumber: 0
+  TimeToBeat: 0
+  OthersNeeded:
+  - {fileID: 11400000, guid: 6797f06accc834294951d1b7635f6702, type: 2}
+  - {fileID: 11400000, guid: 43fb09f78ec2a411d87fe9fa06f73c7b, type: 2}
+  - {fileID: 11400000, guid: 2bf6035e8fd654bc1830836924341dff, type: 2}
+  - {fileID: 11400000, guid: 471634f6ddd224ac790206232f49522f, type: 2}
+  - {fileID: 11400000, guid: b3603ca81142a415c8002a4bf541111d, type: 2}
+  - {fileID: 11400000, guid: cc3c02269881745589f0a448182b15ac, type: 2}
+  - {fileID: 11400000, guid: c7f3c44dea9bf4305bacd25bd0a55b86, type: 2}
+  - {fileID: 11400000, guid: cb738ee6316a74d1c80e3774c28bfa01, type: 2}
+  - {fileID: 11400000, guid: bcd9d7b4e670b4aa9896b804b0d98ec6, type: 2}
+  - {fileID: 11400000, guid: c4f57e5b9fbaa4f22bae254b7579ac31, type: 2}
