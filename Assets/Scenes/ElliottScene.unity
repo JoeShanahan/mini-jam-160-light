@@ -802,7 +802,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1033096811
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.6792453, g: 0.27781603, b: 0.0032039948, a: 1}
@@ -1123,6 +1123,9 @@ MonoBehaviour:
   _timeDiffText: {fileID: 940895285}
   _timeText: {fileID: 2030129755}
   _activeHighlight: {fileID: 1082811863}
+  _colorGood: {r: 0, g: 0, b: 0, a: 0}
+  _colorMid: {r: 0, g: 0, b: 0, a: 0}
+  _colorBad: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &199111622
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1670,9 @@ MonoBehaviour:
   _timeDiffText: {fileID: 135897347}
   _timeText: {fileID: 1485320353}
   _activeHighlight: {fileID: 691871025}
+  _colorGood: {r: 0, g: 0, b: 0, a: 0}
+  _colorMid: {r: 0, g: 0, b: 0, a: 0}
+  _colorBad: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &331134383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2196,10 +2202,12 @@ MonoBehaviour:
     BestTimes: []
     RunTime: 0
   _playerState:
-    BestTimes: 
+    BestSectionTimes: 
+    BestRunTimes: 
     BestOverallTime: 0
     UnlockedAchievements: []
   _gameUI: {fileID: 1108462004}
+  _levelManager: {fileID: 0}
 --- !u!4 &435672834
 Transform:
   m_ObjectHideFlags: 0
@@ -3764,7 +3772,7 @@ SortingGroup:
   m_GameObject: {fileID: 800807520}
   m_Enabled: 1
   m_SortingLayerID: -1070787481
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_SortAtRoot: 0
 --- !u!4 &800807524
@@ -3828,16 +3836,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 15
   jumpForce: 25
-  groundCheck: {fileID: 704140385}
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 64
   maxJumps: 2
-  respawnPoint: {fileID: 1326803980}
   canDoubleJump: 1
+  health: 1
   _equippedAbility: 0
   _abilityData: {fileID: 11400000, guid: db98e12522ec040bfb9b9c8b2b524d9f, type: 2}
   isGrounded: 0
+  isHeadache: 0
+  _respawnPoint: {x: 0, y: 0, z: 0}
+  currentXVelocity: 0
+  currentYVelocity: 0
+  speedThreshold: 15
+  decelerationStrength: 0.5
+  bombPrefab: {fileID: 0}
+  bombSpawnPoint: {fileID: 0}
+  explosionForce: 10
 --- !u!1 &807982964
 GameObject:
   m_ObjectHideFlags: 0
@@ -4922,7 +4935,7 @@ Transform:
   m_GameObject: {fileID: 989281293}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.87264824, y: 0.28, z: -6}
+  m_LocalPosition: {x: 0.87333274, y: 0.28, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5155,7 +5168,7 @@ Transform:
   m_GameObject: {fileID: 1065710683}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.87264824, y: 0.28, z: -6}
+  m_LocalPosition: {x: 0.87333274, y: 0.28, z: -6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5614,6 +5627,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timeUI: {fileID: 636031038}
+  _endUI: {fileID: 0}
+  _trophyPips: {fileID: 0}
 --- !u!114 &1108462005
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8227,6 +8242,9 @@ MonoBehaviour:
   _timeDiffText: {fileID: 1321159465}
   _timeText: {fileID: 1441073392}
   _activeHighlight: {fileID: 1851430183}
+  _colorGood: {r: 0, g: 0, b: 0, a: 0}
+  _colorMid: {r: 0, g: 0, b: 0, a: 0}
+  _colorBad: {r: 0, g: 0, b: 0, a: 0}
 --- !u!224 &2116669219
 RectTransform:
   m_ObjectHideFlags: 0

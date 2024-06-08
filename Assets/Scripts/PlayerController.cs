@@ -15,7 +15,7 @@ public enum AbilityType {
 public class PlayerController : MonoBehaviour {
 
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    public float desiredJumpHeight = 2f;
     public int maxJumps = 2;
     public bool canDoubleJump = true;
     public int health = 1;
@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour {
 
     private Collider2D _myCollider;
 
+    private float accelerationProgress = 0f;
+    public float accelerationTime = 2f;
+
+    private float jumpVelocity;
+
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -73,6 +78,8 @@ public class PlayerController : MonoBehaviour {
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
 
         _myCollider = GetComponent<Collider2D>();
+
+        jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
     void OnEnable() {
@@ -93,7 +100,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (!isHorizontalBoosting) {
-            rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+            UpdateMovement();
         }
 
         ApplyDeceleration();
@@ -104,6 +111,10 @@ public class PlayerController : MonoBehaviour {
 
         currentXVelocity = rb.velocity.x;
         currentYVelocity = rb.velocity.y;
+
+        if (currentXVelocity > 30) {
+            StreamerCam.NotifyStreamer(StreamerEvent.HighSpeed);
+        }
 
         if (moveInput.x != 0) {
             lastHorizontalDirection = Mathf.Sign(moveInput.x);
@@ -120,7 +131,7 @@ public class PlayerController : MonoBehaviour {
 
     void OnJump() {
         if (isGrounded || (canDoubleJump && remainingJumps > 0)) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
             remainingJumps--;
         }
     }
@@ -135,7 +146,8 @@ public class PlayerController : MonoBehaviour {
         } else {
             Vector2 explosionDirection = (transform.position - (Vector3)explosionPosition).normalized;
             rb.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
-            Debug.Log("Bomb-jump shinanegans");
+            StreamerCam.NotifyStreamer(StreamerEvent.BombJumpExecuted);
+            Debug.Log("Bomb-jump shenanigans");
         }
     }
 
@@ -315,6 +327,7 @@ public class PlayerController : MonoBehaviour {
         Debug.Log($"Invincible for {time} seconds!");
 
         isInvincible = true;
+        StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
 
         StartCoroutine(InvincibilityDuration(time));
 
@@ -327,5 +340,20 @@ public class PlayerController : MonoBehaviour {
         if (isCollidingWithDanger) {
             Die();
         }
+    }
+
+    private void UpdateMovement() {
+        if (moveInput.x != 0) {
+            accelerationProgress += Time.deltaTime / accelerationTime;
+            float easedProgress = ExponentialEaseOut(accelerationProgress);
+            rb.velocity = new Vector2(Mathf.Sign(moveInput.x) * easedProgress * moveSpeed, rb.velocity.y);
+        } else {
+            accelerationProgress = 0f;
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+    }
+
+    private float ExponentialEaseOut(float t) {
+        return t == 1f ? 1f : 1 - Mathf.Pow(2, -10 * t);
     }
 }

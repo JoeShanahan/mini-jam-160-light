@@ -4,7 +4,11 @@ public enum StreamerEvent
 {
     Death,
     EnemyKill,
-    LevelComplete
+    LevelComplete,
+    Invincibility,
+    HighSpeed,
+    ObjectDestroyed,
+    BombJumpExecuted
 }
 
 public class StreamerCam : MonoBehaviour
