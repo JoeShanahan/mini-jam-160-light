@@ -22,7 +22,7 @@ MonoBehaviour:
     AbilityType: 2
     Icon: {fileID: 0}
     Power: 30
-    Cooldown: 1
+    Cooldown: 0
   - DisplayName: Freeze
     AbilityType: 3
     Icon: {fileID: 0}
