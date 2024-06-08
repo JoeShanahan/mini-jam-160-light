@@ -151,6 +151,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         Debug.Log("You died :(");
+        StreamerCam.NotifyStreamer(StreamerEvent.Death);
         Respawn();
     }
 
