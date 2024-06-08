@@ -15,7 +15,7 @@ public enum AbilityType {
 public class PlayerController : MonoBehaviour {
 
     public float moveSpeed = 5f;
-    public float desiredJumpHeight = 2f; // Desired jump height in units
+    public float desiredJumpHeight = 2f;
     public int maxJumps = 2;
     public bool canDoubleJump = true;
     public int health = 1;
