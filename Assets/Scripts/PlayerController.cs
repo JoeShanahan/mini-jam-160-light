@@ -15,9 +15,7 @@ public enum AbilityType {
 public class PlayerController : MonoBehaviour {
 
     public float moveSpeed = 5f;
-    public float jumpForce = 10f;
-    public Transform groundCheck;
-    public LayerMask groundLayer;
+    public float desiredJumpHeight = 2f;
     public int maxJumps = 2;
     public bool canDoubleJump = true;
     public int health = 1;
@@ -29,9 +27,10 @@ public class PlayerController : MonoBehaviour {
     private Animator animator;
     private Vector2 moveInput;
     [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isHeadache;
     private int remainingJumps;
     private InputSystem_Actions controls;
-    private Vector3 _respawnPoint;
+    [SerializeField] private Vector3 _respawnPoint;
 
     private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
@@ -57,10 +56,12 @@ public class PlayerController : MonoBehaviour {
     public Transform bombSpawnPoint;
     public float explosionForce = 10f;
 
-    public Collider2D CrushCheckTop;
-    public Collider2D CrushCheckBottom;
+    private Collider2D _myCollider;
 
-    private bool isCrushed = false;
+    private float accelerationProgress = 0f;
+    public float accelerationTime = 2f;
+
+    private float jumpVelocity;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -75,6 +76,10 @@ public class PlayerController : MonoBehaviour {
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
         platforms = FindObjectsByType<MovingPlatform>(FindObjectsSortMode.None);
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
+
+        _myCollider = GetComponent<Collider2D>();
+
+        jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
     void OnEnable() {
@@ -86,7 +91,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, LayerMask.GetMask("Destructible", "SpikePlatform", "MovingPlatform", "Crusher", "Ground"));
         if (isGrounded) {
             remainingJumps = maxJumps;
         }
@@ -96,7 +100,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (!isHorizontalBoosting) {
-            rb.velocity = new Vector2(moveInput.x * moveSpeed, rb.velocity.y);
+            UpdateMovement();
         }
 
         ApplyDeceleration();
@@ -107,6 +111,10 @@ public class PlayerController : MonoBehaviour {
 
         currentXVelocity = rb.velocity.x;
         currentYVelocity = rb.velocity.y;
+
+        if (currentXVelocity > 30) {
+            StreamerCam.NotifyStreamer(StreamerEvent.HighSpeed);
+        }
 
         if (moveInput.x != 0) {
             lastHorizontalDirection = Mathf.Sign(moveInput.x);
@@ -119,13 +127,11 @@ public class PlayerController : MonoBehaviour {
                 abilityTimers.Remove(ability);
             }
         }
-
-        CrushCheck();
     }
 
     void OnJump() {
         if (isGrounded || (canDoubleJump && remainingJumps > 0)) {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
             remainingJumps--;
         }
     }
@@ -140,7 +146,8 @@ public class PlayerController : MonoBehaviour {
         } else {
             Vector2 explosionDirection = (transform.position - (Vector3)explosionPosition).normalized;
             rb.AddForce(explosionDirection * explosionForce, ForceMode2D.Impulse);
-            Debug.Log("Bomb-jump shinanegans");
+            StreamerCam.NotifyStreamer(StreamerEvent.BombJumpExecuted);
+            Debug.Log("Bomb-jump shenanigans");
         }
     }
 
@@ -151,13 +158,13 @@ public class PlayerController : MonoBehaviour {
         }
 
         Debug.Log("You died :(");
+        StreamerCam.NotifyStreamer(StreamerEvent.Death);
         Respawn();
     }
 
     void Respawn() {
         transform.position = _respawnPoint;
         rb.velocity = Vector2.zero;
-        isCrushed = false;
         isInvincible = false;
     }
 
@@ -174,6 +181,32 @@ public class PlayerController : MonoBehaviour {
         if (collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Enemy")) {
             isCollidingWithDanger = false;
         }
+    }
+
+    void OnCollisionStay2D(Collision2D other) {
+        var contactArray = new ContactPoint2D[16];
+
+        _myCollider.GetContacts(contactArray);
+
+        bool hasContactAbove = false;
+        bool hasContactBelow = false;
+
+        foreach (ContactPoint2D contact in contactArray) {
+            if (contact.point.magnitude < 0.1f)
+                continue;
+
+            if (contact.point.y > transform.position.y + 0.4f)
+                hasContactAbove = true;
+
+            if (contact.point.y < transform.position.y - 0.4f)
+                hasContactBelow = true;
+        }
+
+        isGrounded = hasContactBelow;
+        isHeadache = hasContactAbove;
+
+        if (hasContactAbove && hasContactBelow)
+            Debug.Log("Get crushed idiot");
     }
 
     public void DebugUseAbility(int ability) {
@@ -294,6 +327,7 @@ public class PlayerController : MonoBehaviour {
         Debug.Log($"Invincible for {time} seconds!");
 
         isInvincible = true;
+        StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
 
         StartCoroutine(InvincibilityDuration(time));
 
@@ -308,12 +342,18 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void CrushCheck() {
-        if (CrushCheckTop.IsTouchingLayers(LayerMask.GetMask("Crusher")) && CrushCheckBottom.IsTouchingLayers(LayerMask.GetMask("Crusher"))) {
-            if (!isCrushed) {
-                Die();
-                isCrushed = true;
-            }
+    private void UpdateMovement() {
+        if (moveInput.x != 0) {
+            accelerationProgress += Time.deltaTime / accelerationTime;
+            float easedProgress = ExponentialEaseOut(accelerationProgress);
+            rb.velocity = new Vector2(Mathf.Sign(moveInput.x) * easedProgress * moveSpeed, rb.velocity.y);
+        } else {
+            accelerationProgress = 0f;
+            rb.velocity = new Vector2(0, rb.velocity.y);
         }
+    }
+
+    private float ExponentialEaseOut(float t) {
+        return t == 1f ? 1f : 1 - Mathf.Pow(2, -10 * t);
     }
 }
