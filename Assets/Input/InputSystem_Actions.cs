@@ -126,6 +126,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DebugMenuToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""0637e29e-fc3b-4268-ad9a-6d2904ec02f8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -241,28 +250,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1635d3fe-58b6-4ba9-a4e2-f4b964f6b5c8"",
-                    ""path"": ""<XRController>/{Primary2DAxis}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3ea4d645-4504-4529-b061-ab81934c3752"",
-                    ""path"": ""<Joystick>/stick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Joystick"",
-                    ""action"": ""Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""cbac6039-9c09-46a1-b5f2-4e5124ccb5ed"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
@@ -279,6 +266,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
+                    ""action"": ""NextAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff79a41e-ea10-44d5-9610-77555ee2ae4e"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
                     ""action"": ""NextAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -307,17 +305,6 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""603f3daf-40bd-4854-8724-93e8017f59e3"",
-                    ""path"": ""<XRController>/secondaryButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""XR"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""1534dc16-a6aa-499d-9c3a-22b47347b52a"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
@@ -340,6 +327,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""62dcb443-f610-4009-b9df-5bf63398de30"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad"",
+                    ""action"": ""PreviousAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""1c04ea5f-b012-41d1-a6f7-02e963b52893"",
                     ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
@@ -352,7 +350,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""b3f66d0b-7751-423f-908b-a11c5bd95930"",
-                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
@@ -423,6 +421,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ScrollAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""962fda99-3e09-40b9-99e2-f96ad7358584"",
+                    ""path"": ""<Keyboard>/equals"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DebugMenuToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1021,6 +1030,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_UseRocket = m_Player.FindAction("UseRocket", throwIfNotFound: true);
         m_Player_UseFreeze = m_Player.FindAction("UseFreeze", throwIfNotFound: true);
         m_Player_ScrollAbility = m_Player.FindAction("ScrollAbility", throwIfNotFound: true);
+        m_Player_DebugMenuToggle = m_Player.FindAction("DebugMenuToggle", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1111,6 +1121,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseRocket;
     private readonly InputAction m_Player_UseFreeze;
     private readonly InputAction m_Player_ScrollAbility;
+    private readonly InputAction m_Player_DebugMenuToggle;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1126,6 +1137,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @UseRocket => m_Wrapper.m_Player_UseRocket;
         public InputAction @UseFreeze => m_Wrapper.m_Player_UseFreeze;
         public InputAction @ScrollAbility => m_Wrapper.m_Player_ScrollAbility;
+        public InputAction @DebugMenuToggle => m_Wrapper.m_Player_DebugMenuToggle;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1168,6 +1180,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ScrollAbility.started += instance.OnScrollAbility;
             @ScrollAbility.performed += instance.OnScrollAbility;
             @ScrollAbility.canceled += instance.OnScrollAbility;
+            @DebugMenuToggle.started += instance.OnDebugMenuToggle;
+            @DebugMenuToggle.performed += instance.OnDebugMenuToggle;
+            @DebugMenuToggle.canceled += instance.OnDebugMenuToggle;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1205,6 +1220,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ScrollAbility.started -= instance.OnScrollAbility;
             @ScrollAbility.performed -= instance.OnScrollAbility;
             @ScrollAbility.canceled -= instance.OnScrollAbility;
+            @DebugMenuToggle.started -= instance.OnDebugMenuToggle;
+            @DebugMenuToggle.performed -= instance.OnDebugMenuToggle;
+            @DebugMenuToggle.canceled -= instance.OnDebugMenuToggle;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1398,6 +1416,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnUseRocket(InputAction.CallbackContext context);
         void OnUseFreeze(InputAction.CallbackContext context);
         void OnScrollAbility(InputAction.CallbackContext context);
+        void OnDebugMenuToggle(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
