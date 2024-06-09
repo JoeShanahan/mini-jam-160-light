@@ -1,40 +1,38 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyController : MonoBehaviour {
+public class EnemyGoomba : MonoBehaviour {
 
-    private Rigidbody2D rb;
-    public Transform[] patrolPoints;
     public float speed = 2f;
-    private int currentPointIndex = 0;
-    private bool isFrozen = false;
-    private float originalGravityScale;
+    private bool movingLeft = true;
+    private Rigidbody2D rb;
     public int health = 1;
+    private float originalGravityScale;
+    private bool isFrozen = false;
 
-    void Awake() {
+    void Start() {
         rb = GetComponent<Rigidbody2D>();
-        originalGravityScale = rb.gravityScale;
     }
 
     void Update() {
         if (!isFrozen) {
-            Patrol();
-        }
+            Move();
+        }        
     }
 
-    void Patrol() {
-        if (patrolPoints.Length == 0) return;
-
-        Transform targetPoint = patrolPoints[currentPointIndex];
-        Vector2 direction = (targetPoint.position - transform.position).normalized;
-        rb.velocity = direction * speed;
-
-        if (Vector2.Distance(transform.position, targetPoint.position) < 0.1f) {
-            currentPointIndex = (currentPointIndex + 1) % patrolPoints.Length;
+    void Move() {
+        if (movingLeft) {
+            rb.velocity = new Vector2(-speed, rb.velocity.y);
+        } else {
+            rb.velocity = new Vector2(speed, rb.velocity.y);
         }
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
+        if (collision.gameObject.CompareTag("Player") == false) {
+            movingLeft = !movingLeft;
+        }
+
         if (collision.gameObject.CompareTag("Player")) {
             if (collision.transform.position.y > transform.position.y + 0.5f) {
                 Die();
@@ -42,7 +40,7 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    public void TakeDamage(int damage) { 
+    public void TakeDamage(int damage) {
         health -= damage;
         if (health <= 0) {
             Die();

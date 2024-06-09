@@ -10,10 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9074432010640178335}
   - component: {fileID: 5538440486778023209}
-  - component: {fileID: 3567994820240310686}
   - component: {fileID: 415299042615453839}
   m_Layer: 11
-  m_Name: Enemy
+  m_Name: EnemyGoomba
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62,24 +61,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &3567994820240310686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334278421891879236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53a39a502ad76314a8af46629fab7eda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  speed: 2
-  health: 1
 --- !u!58 &415299042615453839
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -193,7 +174,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -2135585597343286014, guid: 5aa8b770bc43046bc8d993d0d5b7f4a5, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.06779289, a: 1}
+  m_Color: {r: 0.073297024, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

@@ -249,6 +249,10 @@ public class PlayerController : MonoBehaviour {
             crusher.Freeze(time);
         }
 
+        foreach (var crusher in crushers) {
+            crusher.Freeze(time);
+        }
+
         StartCooldown(AbilityType.Freeze);
     }
 
