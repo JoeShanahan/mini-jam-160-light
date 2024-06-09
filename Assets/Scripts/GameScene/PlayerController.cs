@@ -199,6 +199,7 @@ public class PlayerController : MonoBehaviour {
         _graphicsObject.gameObject.SetActive(true);
         controls.Player.Enable();
         Respawn();
+        FindFirstObjectByType<LevelManager>().RespawnSameLevel();
     }
 
     void Respawn() {

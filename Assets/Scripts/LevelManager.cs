@@ -17,8 +17,12 @@ public class LevelManager : MonoBehaviour
         OnNewLevelReached(0);
     }
 
+    private int _currentLevelIdx;
+
     public void OnNewLevelReached(int levelNumber)
     {
+        _currentLevelIdx = levelNumber;
+        
         if (_currentLevel != null)
             Destroy(_currentLevel.gameObject);
 
@@ -27,6 +31,15 @@ public class LevelManager : MonoBehaviour
         _currentLevel = Instantiate(_levelPrefabs[levelNum]);
         _player.SetSpawnPosition(_currentLevel.SpawnPosition);
         FindFirstObjectByType<ClampedPlayerFollow>()?.SetBounds(_currentLevel);
+        StartCoroutine(SnapCamRoutine());
+    }
+
+    public void RespawnSameLevel()
+    {
+        if (_currentLevel != null)
+            Destroy(_currentLevel.gameObject);
+
+        _currentLevel = Instantiate(_levelPrefabs[_currentLevelIdx]);
         StartCoroutine(SnapCamRoutine());
     }
 
