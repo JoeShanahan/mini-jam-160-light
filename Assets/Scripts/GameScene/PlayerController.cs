@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour {
     public int maxJumps = 2;
 
     [SerializeField] private Transform _graphicsObject;
-    
+
     [SerializeField] private float decelerationSpeedThreshold = 15f;
     [SerializeField] private float decelerationStrength = 0.5f;
     private float accelerationProgress = 0f;
@@ -37,6 +37,7 @@ public class PlayerController : MonoBehaviour {
     private float _previousFrameFallVelocity;
     private float jumpVelocity;
     private bool isWalking;
+    private bool isIdle;
 
     [Header("Player Stats")]
     public bool canDoubleJump = true;
@@ -96,18 +97,16 @@ public class PlayerController : MonoBehaviour {
         jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
-    public void SetRigidBodyKinematic(bool trueFalse)
-    {
+    public void SetRigidBodyKinematic(bool trueFalse) {
         rb.isKinematic = trueFalse;
         _myCollider.enabled = !trueFalse;
 
-        if (trueFalse)
-        {
+        if (trueFalse) {
             transform.SetParent(null);
             rb.velocity = Vector3.zero;
         }
     }
-    
+
 
     void OnEnable() {
         controls.Player.Enable();
@@ -148,11 +147,14 @@ public class PlayerController : MonoBehaviour {
         if (moveInput.x != 0 && isGrounded) {
             lastHorizontalDirection = Mathf.Sign(moveInput.x);
             isWalking = true;
+            isIdle = false;
         } else {
             isWalking = false;
+            isIdle = true;
         }
 
         animator.SetBool("isWalking", isWalking);
+        animator.SetBool("isIdle", isIdle);
 
         if (rb.velocity.y < 0 && !isGrounded) {
             animator.SetBool("isFalling", true);
@@ -216,8 +218,7 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(DeathRoutine());
     }
 
-    private IEnumerator DeathRoutine()
-    {
+    private IEnumerator DeathRoutine() {
         isInvincible = true;
         controls.Player.Disable();
         _graphicsObject.gameObject.SetActive(false);
@@ -293,8 +294,7 @@ public class PlayerController : MonoBehaviour {
         isGrounded = hasContactBelow;
         isHeadache = hasContactAbove;
 
-        if (hasContactAbove && hasContactBelow)
-        {
+        if (hasContactAbove && hasContactBelow) {
             Debug.Log("Get crushed idiot");
             Die();
         }
@@ -480,7 +480,7 @@ public class PlayerController : MonoBehaviour {
         } else {
             accelerationProgress = 0f;
             // if (isGrounded) {
-                rb.velocity = new Vector2(0, rb.velocity.y);
+            rb.velocity = new Vector2(0, rb.velocity.y);
             // }
         }
     }
@@ -505,9 +505,8 @@ public class PlayerController : MonoBehaviour {
     private void LateUpdate() {
         _previousFrameFallVelocity = rb.velocity.y;
     }
-    
-    private IEnumerator SnapCamRoutine()
-    {
+
+    private IEnumerator SnapCamRoutine() {
         var cam = FindFirstObjectByType<CinemachinePositionComposer>();
         Vector3 damping = cam.Damping;
         cam.Damping = Vector3.zero;
