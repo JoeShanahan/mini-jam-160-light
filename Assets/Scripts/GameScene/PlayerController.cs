@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour {
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Player.Jump.performed += ctx => OnJump();
-        controls.Player.Interact.performed += ctx => OnAbilityPressed();
+        controls.Player.Interact.performed += ctx => OnAbilityPressed();  // Binding Interact action to OnAbilityPressed method
         controls.Player.NextAbility.performed += ctx => CycleAbility(true);
         controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
 
@@ -95,6 +95,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        // Poll input in Update for faster response
+        HandleInput();
+
         if (isGrounded) {
             remainingJumps = maxJumps;
         }
@@ -133,6 +136,16 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void HandleInput() {
+        if (controls.Player.Jump.triggered) {
+            OnJump();
+        }
+
+        if (controls.Player.Interact.triggered) {
+            OnAbilityPressed();
+        }
+    }
+
     void OnJump() {
         if (isGrounded || (canDoubleJump && remainingJumps > 0)) {
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -162,7 +175,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         Debug.Log("You died :(");
-        StreamerCam.NotifyStreamer(StreamerEvent.Death);
+        //StreamerCam.NotifyStreamer(StreamerEvent.Death);
         Respawn();
     }
 
@@ -311,11 +324,10 @@ public class PlayerController : MonoBehaviour {
         StartCooldown(AbilityType.Boost);
 
         isHorizontalBoosting = true;
-        StartCoroutine(EndHorizontalBoostAfterTime(0.5f));
+        Invoke(nameof(EndHorizontalBoost), 0.5f);
     }
 
-    private IEnumerator EndHorizontalBoostAfterTime(float duration) {
-        yield return new WaitForSeconds(duration - 0.1f);
+    private void EndHorizontalBoost() {
         isHorizontalBoosting = false;
     }
 
@@ -327,11 +339,10 @@ public class PlayerController : MonoBehaviour {
         StartCooldown(AbilityType.Rocket);
 
         isVerticalBoosting = true;
-        StartCoroutine(EndVerticalBoostAfterTime(0.5f));
+        Invoke(nameof(EndVerticalBoost), 0.5f);
     }
 
-    private IEnumerator EndVerticalBoostAfterTime(float duration) {
-        yield return new WaitForSeconds(duration);
+    private void EndVerticalBoost() {
         isVerticalBoosting = false;
     }
 
