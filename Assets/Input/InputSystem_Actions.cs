@@ -117,6 +117,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ScrollAbility"",
+                    ""type"": ""Value"",
+                    ""id"": ""4d870466-a594-4305-bb6f-6a7a23df516a"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -403,6 +412,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UseFreeze"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6b392fc3-b82b-4905-9dfa-787b0f40636b"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ScrollAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1000,6 +1020,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_UseInvincibility = m_Player.FindAction("UseInvincibility", throwIfNotFound: true);
         m_Player_UseRocket = m_Player.FindAction("UseRocket", throwIfNotFound: true);
         m_Player_UseFreeze = m_Player.FindAction("UseFreeze", throwIfNotFound: true);
+        m_Player_ScrollAbility = m_Player.FindAction("ScrollAbility", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1089,6 +1110,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseInvincibility;
     private readonly InputAction m_Player_UseRocket;
     private readonly InputAction m_Player_UseFreeze;
+    private readonly InputAction m_Player_ScrollAbility;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1103,6 +1125,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @UseInvincibility => m_Wrapper.m_Player_UseInvincibility;
         public InputAction @UseRocket => m_Wrapper.m_Player_UseRocket;
         public InputAction @UseFreeze => m_Wrapper.m_Player_UseFreeze;
+        public InputAction @ScrollAbility => m_Wrapper.m_Player_ScrollAbility;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1142,6 +1165,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @UseFreeze.started += instance.OnUseFreeze;
             @UseFreeze.performed += instance.OnUseFreeze;
             @UseFreeze.canceled += instance.OnUseFreeze;
+            @ScrollAbility.started += instance.OnScrollAbility;
+            @ScrollAbility.performed += instance.OnScrollAbility;
+            @ScrollAbility.canceled += instance.OnScrollAbility;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1176,6 +1202,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @UseFreeze.started -= instance.OnUseFreeze;
             @UseFreeze.performed -= instance.OnUseFreeze;
             @UseFreeze.canceled -= instance.OnUseFreeze;
+            @ScrollAbility.started -= instance.OnScrollAbility;
+            @ScrollAbility.performed -= instance.OnScrollAbility;
+            @ScrollAbility.canceled -= instance.OnScrollAbility;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1368,6 +1397,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnUseInvincibility(InputAction.CallbackContext context);
         void OnUseRocket(InputAction.CallbackContext context);
         void OnUseFreeze(InputAction.CallbackContext context);
+        void OnScrollAbility(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

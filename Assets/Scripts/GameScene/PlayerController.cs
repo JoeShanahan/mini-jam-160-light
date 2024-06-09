@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour {
         controls.Player.Interact.performed += ctx => OnAbilityPressed();  // Binding Interact action to OnAbilityPressed method
         controls.Player.NextAbility.performed += ctx => CycleAbility(true);
         controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
+        controls.Player.ScrollAbility.performed += ctx => CycleAbility(ctx.ReadValue<float>() > 0);
 
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
         enemygoombas = FindObjectsByType<EnemyGoomba>(FindObjectsSortMode.None);
