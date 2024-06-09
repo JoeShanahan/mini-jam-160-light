@@ -220,6 +220,7 @@ public class PlayerController : MonoBehaviour {
 
     private IEnumerator DeathRoutine() {
         isInvincible = true;
+        SetRigidBodyKinematic(true);
         controls.Player.Disable();
         _graphicsObject.gameObject.SetActive(false);
 
@@ -236,6 +237,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Respawn() {
+        SetRigidBodyKinematic(false);
         transform.position = _respawnPoint;
         rb.velocity = Vector2.zero;
         isInvincible = false;

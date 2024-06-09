@@ -48,7 +48,7 @@ public class Crusher : MonoBehaviour {
 
         transform.position = targetPosition;
     }
-
+    
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.CompareTag("Player")) {
             playerTransform = other.transform;
@@ -57,7 +57,7 @@ public class Crusher : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Player")) {
+        if (playerTransform != null && other.CompareTag("Player") && playerTransform.parent == transform) {
             playerTransform.SetParent(null);
             playerTransform = null;
         }

@@ -22,9 +22,15 @@ public class LevelManager : MonoBehaviour
     public void OnNewLevelReached(int levelNumber)
     {
         _currentLevelIdx = levelNumber;
-        
+
         if (_currentLevel != null)
+        {
+            PlayerController player = FindFirstObjectByType<PlayerController>();
+            if (player.transform.parent != null)
+                player.transform.SetParent(null);
+            
             Destroy(_currentLevel.gameObject);
+        }
 
         int levelNum = Mathf.Clamp(levelNumber, 0, _levelPrefabs.Count - 1);
 
