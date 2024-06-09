@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e3066ae345a41d0499ef1a55dced093f
+guid: dfeed1bc3b580df42a8fddbbd930e478
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6721627706411720913
-    second: MushyIdle_0
+      213: -5768419222814332873
+    second: MushyIdle2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MushyIdle_0
+      name: MushyIdle2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,37 +108,15 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1d0281949c4084d50800000000000000
-      internalID: 6721627706411720913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MushyIdle_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 411a7d27e28e291448e3ca377040c5a8
-      internalID: 1875489897
+      spriteID: 738ed9c774572ffa0800000000000000
+      internalID: -5768419222814332873
       vertices: []
       indices: 
       edges: []
@@ -147,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: a4fc74f4dc046cb479bb3988dd7cf3b2
+    spriteID: d78895ecf11c1774a875da25b68d344c
     internalID: 0
     vertices: []
     indices: 
@@ -155,8 +133,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MushyIdle_0: 6721627706411720913
-      MushyIdle_1: 1875489897
+      MushyIdle2_0: -5768419222814332873
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
