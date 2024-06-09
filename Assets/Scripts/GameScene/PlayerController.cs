@@ -73,6 +73,8 @@ public class PlayerController : MonoBehaviour {
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Player.Jump.performed += ctx => OnJump();
         controls.Player.Interact.performed += ctx => OnAbilityPressed();
+        controls.Player.NextAbility.performed += ctx => CycleAbility(true);
+        controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
 
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
         enemygoombas = FindObjectsByType<EnemyGoomba>(FindObjectsSortMode.None);
@@ -370,5 +372,17 @@ public class PlayerController : MonoBehaviour {
 
     private float ExponentialEaseOut(float t) {
         return t == 1f ? 1f : 1 - Mathf.Pow(2, -10 * t);
+    }
+
+    private void CycleAbility(bool next) {
+        var abilities = System.Enum.GetValues(typeof(AbilityType));
+        int currentIndex = System.Array.IndexOf(abilities, _equippedAbility);
+        if (next) {
+            currentIndex = (currentIndex + 1) % abilities.Length;
+        } else {
+            currentIndex = (currentIndex - 1 + abilities.Length) % abilities.Length;
+        }
+        _equippedAbility = (AbilityType) abilities.GetValue(currentIndex);
+        Debug.Log($"Equipped ability: {_equippedAbility}");
     }
 }

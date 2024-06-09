@@ -56,7 +56,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Previous"",
+                    ""name"": ""PreviousAbility"",
                     ""type"": ""Button"",
                     ""id"": ""2776c80d-3c14-4091-8c56-d04ced07a2b0"",
                     ""expectedControlType"": """",
@@ -65,7 +65,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Next"",
+                    ""name"": ""NextAbility"",
                     ""type"": ""Button"",
                     ""id"": ""b7230bb6-fc9b-4f52-8b25-f5e19cb2c2ba"",
                     ""expectedControlType"": """",
@@ -214,7 +214,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Next"",
+                    ""action"": ""NextAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -225,7 +225,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Next"",
+                    ""action"": ""NextAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -269,7 +269,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Previous"",
+                    ""action"": ""PreviousAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -280,7 +280,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
-                    ""action"": ""Previous"",
+                    ""action"": ""PreviousAbility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -893,8 +893,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Previous = m_Player.FindAction("Previous", throwIfNotFound: true);
-        m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
+        m_Player_PreviousAbility = m_Player.FindAction("PreviousAbility", throwIfNotFound: true);
+        m_Player_NextAbility = m_Player.FindAction("NextAbility", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -977,8 +977,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Previous;
-    private readonly InputAction m_Player_Next;
+    private readonly InputAction m_Player_PreviousAbility;
+    private readonly InputAction m_Player_NextAbility;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -986,8 +986,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        public InputAction @Previous => m_Wrapper.m_Player_Previous;
-        public InputAction @Next => m_Wrapper.m_Player_Next;
+        public InputAction @PreviousAbility => m_Wrapper.m_Player_PreviousAbility;
+        public InputAction @NextAbility => m_Wrapper.m_Player_NextAbility;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1006,12 +1006,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Previous.started += instance.OnPrevious;
-            @Previous.performed += instance.OnPrevious;
-            @Previous.canceled += instance.OnPrevious;
-            @Next.started += instance.OnNext;
-            @Next.performed += instance.OnNext;
-            @Next.canceled += instance.OnNext;
+            @PreviousAbility.started += instance.OnPreviousAbility;
+            @PreviousAbility.performed += instance.OnPreviousAbility;
+            @PreviousAbility.canceled += instance.OnPreviousAbility;
+            @NextAbility.started += instance.OnNextAbility;
+            @NextAbility.performed += instance.OnNextAbility;
+            @NextAbility.canceled += instance.OnNextAbility;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1025,12 +1025,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Previous.started -= instance.OnPrevious;
-            @Previous.performed -= instance.OnPrevious;
-            @Previous.canceled -= instance.OnPrevious;
-            @Next.started -= instance.OnNext;
-            @Next.performed -= instance.OnNext;
-            @Next.canceled -= instance.OnNext;
+            @PreviousAbility.started -= instance.OnPreviousAbility;
+            @PreviousAbility.performed -= instance.OnPreviousAbility;
+            @PreviousAbility.canceled -= instance.OnPreviousAbility;
+            @NextAbility.started -= instance.OnNextAbility;
+            @NextAbility.performed -= instance.OnNextAbility;
+            @NextAbility.canceled -= instance.OnNextAbility;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1216,8 +1216,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
-        void OnPrevious(InputAction.CallbackContext context);
-        void OnNext(InputAction.CallbackContext context);
+        void OnPreviousAbility(InputAction.CallbackContext context);
+        void OnNextAbility(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
