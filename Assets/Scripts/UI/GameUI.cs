@@ -26,4 +26,14 @@ public class GameUI : MonoBehaviour
     {
         _trophyPips.InitTrophies(allTrophies);
     }
+
+    public void DebugPowerButtonPressed(int idx)
+    {
+        FindFirstObjectByType<PlayerController>().DebugUseAbility(idx);
+    }
+
+    public void DebugCompleteLevelPressed()
+    {
+        FindFirstObjectByType<RunManager>().OnLevelComplete();
+    }
 }
