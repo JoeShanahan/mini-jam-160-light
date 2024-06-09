@@ -21,14 +21,20 @@ public class ClampedPlayerFollow : MonoBehaviour
         {
             float widthMultiplier = Screen.width / (float) Screen.height;
             float initialWidth = VerticalBlockCount * widthMultiplier;
-
-            float streamerOverlayWidth = 275;
-            float canvasPixels = 720 * widthMultiplier;
-
-            float streamerPercentCovered = streamerOverlayWidth / canvasPixels;
-            float remaining = 1 - streamerPercentCovered;
+            float remaining = 1 - StreamerPercentOfScreenCovered;
             
             return initialWidth * remaining;
+        }
+    }
+
+    private float StreamerPercentOfScreenCovered
+    {
+        get
+        {
+            float widthMultiplier = Screen.width / (float) Screen.height;
+            float streamerOverlayWidth = 275;
+            float canvasPixels = 720 * widthMultiplier;
+            return streamerOverlayWidth / canvasPixels;
         }
     }
 
@@ -44,6 +50,10 @@ public class ClampedPlayerFollow : MonoBehaviour
         float horzCount = HorizontalBlockCount;
         float rightBound = _botRight.x - (horzCount / 2f);
         float leftBound = _topLeft.x + (horzCount / 2f);
+
+        float blocksPerPixel = 720 / VerticalBlockCount;
+        float blocksCovered = 275 / blocksPerPixel;
+        leftBound -= blocksCovered / 2f;
         
         if (lowerBound > upperBound)
         {
@@ -55,7 +65,7 @@ public class ClampedPlayerFollow : MonoBehaviour
             leftBound = rightBound = (leftBound + rightBound) / 2;
         }
 
-        // xPos = Mathf.Clamp(xPos, leftBound, rightBound);
+        xPos = Mathf.Clamp(xPos, leftBound, rightBound);
         yPos = Mathf.Clamp(yPos, lowerBound, upperBound);
 
         transform.position = new Vector3(xPos, yPos, 0);
