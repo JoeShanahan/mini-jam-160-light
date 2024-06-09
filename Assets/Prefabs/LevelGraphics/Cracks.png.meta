@@ -1,25 +1,25 @@
 fileFormatVersion: 2
-guid: 4c830ee98c7304647b67c5e480bfbcb9
+guid: 0e60d5176a0a325459cc8ef9e6c91a7b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6436083864856947225
-    second: Level Graphic Assets_0
+      213: 2522378773345068697
+    second: Cracks_0
   - first:
-      213: 9100474667851154831
-    second: Level Graphic Assets_1
+      213: -2674641774437632702
+    second: Cracks_1
   - first:
-      213: -2271244599369064489
-    second: Level Graphic Assets_2
+      213: 289633948872884710
+    second: Cracks_2
   - first:
-      213: -1990166704629109862
-    second: Level Graphic Assets_3
+      213: 7498944902602917901
+    second: Cracks_3
   - first:
-      213: -1207549845240741442
-    second: Level Graphic Assets_4
+      213: -5822648679201629909
+    second: Cracks_4
   - first:
-      213: 369538510725283212
-    second: Level Graphic Assets_5
+      213: -6897809294359627686
+    second: Cracks_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -66,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -90,7 +90,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -115,199 +115,133 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Level Graphic Assets_0
+      name: Cracks_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 31
-        width: 67
-        height: 16
+        x: 0
+        y: 95
+        width: 16
+        height: 33
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7e5149223df6ea6a0800000000000000
-      internalID: -6436083864856947225
+      spriteID: 996e736512a410320800000000000000
+      internalID: 2522378773345068697
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level Graphic Assets_1
+      name: Cracks_1
       rect:
         serializedVersion: 2
-        x: 74
-        y: 31
-        width: 67
-        height: 16
+        x: 0
+        y: 64
+        width: 16
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f8585b87e716b4e70800000000000000
-      internalID: 9100474667851154831
+      spriteID: 245793d1a73c1ead0800000000000000
+      internalID: -2674641774437632702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level Graphic Assets_2
+      name: Cracks_2
       rect:
         serializedVersion: 2
-        x: 2
-        y: 16
-        width: 67
-        height: 13
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 7df1598021bea70e0800000000000000
-      internalID: -2271244599369064489
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level Graphic Assets_3
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 16
-        width: 67
-        height: 11
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a9ba5ce2de18164e0800000000000000
-      internalID: -1990166704629109862
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level Graphic Assets_4
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 52
+        x: 3
+        y: 48
+        width: 8
         height: 15
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: eb109d940dbed3fe0800000000000000
-      internalID: -1207549845240741442
+      spriteID: 6e1467dba8cf40400800000000000000
+      internalID: 289633948872884710
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level Graphic Assets_5
+      name: Cracks_3
       rect:
         serializedVersion: 2
-        x: 81
-        y: 0
-        width: 14
-        height: 16
+        x: 3
+        y: 24
+        width: 13
+        height: 35
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c8d7b9e415dd02500800000000000000
-      internalID: 369538510725283212
+      spriteID: d088fd568aa911860800000000000000
+      internalID: 7498944902602917901
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level Graphic Assets_6
+      name: Cracks_4
       rect:
         serializedVersion: 2
-        x: 96
-        y: 1
-        width: 16
-        height: 14
+        x: 0
+        y: 2
+        width: 13
+        height: 18
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: 2a28b1cc36e98b34393478bf5d432cc7
-      internalID: 912641611
+      spriteID: b291a4040ebc13fa0800000000000000
+      internalID: -5822648679201629909
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Level Graphic Assets_7
+      name: Cracks_5
       rect:
         serializedVersion: 2
-        x: 113
-        y: 0
-        width: 14
-        height: 16
+        x: 7
+        y: 15
+        width: 9
+        height: 8
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: 0
+      tessellationDetail: -1
       bones: []
-      spriteID: e57f95648065a9c489e65ce0a295e27d
-      internalID: 1746619708
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Level Graphic Assets_8
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 1
-        width: 16
-        height: 14
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2b88d35887eaa7847bdde03a4355bec7
-      internalID: 1709820397
+      spriteID: a587e413efe0640a0800000000000000
+      internalID: -6897809294359627686
       vertices: []
       indices: 
       edges: []
@@ -316,23 +250,14 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5b7020fc17cd754458d60f607b9c882b
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Level Graphic Assets_0: -6436083864856947225
-      Level Graphic Assets_1: 9100474667851154831
-      Level Graphic Assets_2: -2271244599369064489
-      Level Graphic Assets_3: -1990166704629109862
-      Level Graphic Assets_4: -1207549845240741442
-      Level Graphic Assets_5: 369538510725283212
-      Level Graphic Assets_6: 912641611
-      Level Graphic Assets_7: 1746619708
-      Level Graphic Assets_8: 1709820397
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
