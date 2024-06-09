@@ -15,67 +15,72 @@ public enum AbilityType {
 
 public class PlayerController : MonoBehaviour {
 
+
+    [Header("Player Movement")]
     public float moveSpeed = 5f;
     public float desiredJumpHeight = 2f;
     public int maxJumps = 2;
-    public bool canDoubleJump = true;
-    public int health = 1;
 
-    [SerializeField] private AbilityType _equippedAbility;
-    [SerializeField] private AbilityData _abilityData;
     [SerializeField] private Transform _graphicsObject;
     
-    private Rigidbody2D rb;
-    private Animator animator;
+    [SerializeField] private float decelerationSpeedThreshold = 15f;
+    [SerializeField] private float decelerationStrength = 0.5f;
+    private float accelerationProgress = 0f;
+    public float accelerationTime = 2f;
+
     private Vector2 moveInput;
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private bool isHeadache;
     private int remainingJumps;
-    private InputSystem_Actions controls;
-    [SerializeField] private Vector3 _respawnPoint;
-
-    private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
-
-    [SerializeField] private float currentXVelocity;
-    [SerializeField] private float currentYVelocity;
-
+    private InputSystem_Actions controls; 
     private bool isHorizontalBoosting;
     private bool isVerticalBoosting;
-
     private float lastHorizontalDirection;
-
-    [SerializeField] private float speedThreshold = 15f;
-    [SerializeField] private float decelerationStrength = 0.5f;
-
-    private bool isInvincible;
-    private bool isCollidingWithDanger;
-
-    private EnemyController[] enemies;
-    private EnemyGoomba[] enemygoombas;
-    private MovingPlatform[] platforms;
-    private Crusher[] crushers;
     private float _previousFrameFallVelocity;
-    
+    private float jumpVelocity;
+
+    [Header("Player Stats")]
+    public bool canDoubleJump = true;
+    [SerializeField] private AbilityType _equippedAbility;
+    public int health = 1;
+
+    [Header("Bomb")]
     public GameObject bombPrefab;
     public Transform bombSpawnPoint;
     public float explosionForce = 10f;
 
+    [Header("Invincibility")]
+    public Color[] invincibilityColors;
+    public float colorChangeSpeed = 0.1f;
+    private Coroutine invincibilityCoroutine;
+
+    [Header("Data")]
+    [SerializeField] private AbilityData _abilityData;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isHeadache;
+    [SerializeField] private bool isInvincible;
+    [SerializeField] private Vector3 _respawnPoint;
+    [SerializeField] private float currentXVelocity;
+    [SerializeField] private float currentYVelocity;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private EnemyController[] enemies;
+    private EnemyGoomba[] enemygoombas;
+    private MovingPlatform[] platforms;
+    private Crusher[] crushers;
     private Collider2D _myCollider;
-
-    private float accelerationProgress = 0f;
-    public float accelerationTime = 2f;
-
-    private float jumpVelocity;
+    private bool isCollidingWithDanger;
+    private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         controls = new InputSystem_Actions();
 
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Player.Jump.performed += ctx => OnJump();
-        controls.Player.Interact.performed += ctx => OnAbilityPressed();  // Binding Interact action to OnAbilityPressed method
+        controls.Player.Interact.performed += ctx => OnAbilityPressed();
         controls.Player.NextAbility.performed += ctx => CycleAbility(true);
         controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
         controls.Player.ScrollAbility.performed += ctx => CycleAbility(ctx.ReadValue<float>() > 0);
@@ -86,7 +91,7 @@ public class PlayerController : MonoBehaviour {
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
 
         _myCollider = GetComponent<Collider2D>();
-        
+
         jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
@@ -99,7 +104,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-        // Poll input in Update for faster response
         HandleInput();
 
         if (isGrounded) {
@@ -205,21 +209,20 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision) {
         bool isSpike = collision.gameObject.CompareTag("Spike");
         bool isEnemy = collision.gameObject.CompareTag("Enemy");
-        
-        if (isSpike || isEnemy)
-        {
+
+        if (isSpike || isEnemy) {
             bool fallingOnDanger = collision.contacts[0].normal.y > 0.2f;
-            
+
             if (fallingOnDanger && isEnemy) {
                 collision.gameObject.GetComponent<BaseEnemy>().Die();
                 InvertYSpeed();
                 return;
             }
-            
+
             isCollidingWithDanger = true;
 
             if (!isInvincible) {
-                
+
                 Die();
             }
         }
@@ -321,7 +324,7 @@ public class PlayerController : MonoBehaviour {
 
         Vector2 playerVelocity = rb.velocity;
 
-        float additionalVelocity = 5f;  
+        float additionalVelocity = 5f;
         Vector2 throwForce = new Vector2(
         playerVelocity.x + Mathf.Sign(playerVelocity.x) * additionalVelocity,
         power
@@ -338,12 +341,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void ApplyDeceleration() {
-        if (Mathf.Abs(rb.velocity.x) > speedThreshold) {
+        if (Mathf.Abs(rb.velocity.x) > decelerationSpeedThreshold) {
             float deceleration = decelerationStrength * Time.deltaTime * Mathf.Sign(rb.velocity.x);
             float newVelocityX = rb.velocity.x - deceleration;
 
-            if (Mathf.Abs(newVelocityX) < speedThreshold) {
-                newVelocityX = speedThreshold * Mathf.Sign(rb.velocity.x);
+            if (Mathf.Abs(newVelocityX) < decelerationSpeedThreshold) {
+                newVelocityX = decelerationSpeedThreshold * Mathf.Sign(rb.velocity.x);
             }
 
             rb.velocity = new Vector2(newVelocityX, rb.velocity.y);
@@ -395,16 +398,27 @@ public class PlayerController : MonoBehaviour {
         Debug.Log($"Invincible for {time} seconds!");
 
         isInvincible = true;
-        StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
+       // StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
 
-        StartCoroutine(InvincibilityDuration(time));
+        invincibilityCoroutine = StartCoroutine(InvincibilityDuration(time));
 
         StartCooldown(AbilityType.Invincible);
     }
 
     private IEnumerator InvincibilityDuration(float time) {
-        yield return new WaitForSeconds(time);
+        float elapsedTime = 0f;
+        int colorIndex = 0;
+
+        while (elapsedTime < time) {
+            spriteRenderer.color = invincibilityColors[colorIndex];
+            colorIndex = (colorIndex + 1) % invincibilityColors.Length;
+            yield return new WaitForSeconds(colorChangeSpeed);
+            elapsedTime += colorChangeSpeed;
+        }
+
+        spriteRenderer.color = Color.white;
         isInvincible = false;
+
         if (isCollidingWithDanger) {
             Die();
         }
@@ -415,6 +429,8 @@ public class PlayerController : MonoBehaviour {
             accelerationProgress += Time.deltaTime / accelerationTime;
             float easedProgress = ExponentialEaseOut(accelerationProgress);
             rb.velocity = new Vector2(Mathf.Sign(moveInput.x) * easedProgress * moveSpeed, rb.velocity.y);
+
+            spriteRenderer.flipX = moveInput.x < 0;
         } else {
             accelerationProgress = 0f;
             rb.velocity = new Vector2(0, rb.velocity.y);
@@ -438,8 +454,7 @@ public class PlayerController : MonoBehaviour {
         FindFirstObjectByType<AbilitySelectUI>().SelectAbility(_equippedAbility);
     }
 
-    private void LateUpdate()
-    {
+    private void LateUpdate() {
         _previousFrameFallVelocity = rb.velocity.y;
     }
 }
