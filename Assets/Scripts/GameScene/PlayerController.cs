@@ -15,62 +15,57 @@ public enum AbilityType {
 
 public class PlayerController : MonoBehaviour {
 
+
+    [Header("Player Movement")]
     public float moveSpeed = 5f;
     public float desiredJumpHeight = 2f;
     public int maxJumps = 2;
-    public bool canDoubleJump = true;
-    public int health = 1;
-
-    [SerializeField] private AbilityType _equippedAbility;
-    [SerializeField] private AbilityData _abilityData;
-
-    private Rigidbody2D rb;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+    [SerializeField] private float decelerationSpeedThreshold = 15f;
+    [SerializeField] private float decelerationStrength = 0.5f;
+    private float accelerationProgress = 0f;
+    public float accelerationTime = 2f;
     private Vector2 moveInput;
-    [SerializeField] private bool isGrounded;
-    [SerializeField] private bool isHeadache;
     private int remainingJumps;
-    private InputSystem_Actions controls;
-    [SerializeField] private Vector3 _respawnPoint;
-
-    private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
-
-    [SerializeField] private float currentXVelocity;
-    [SerializeField] private float currentYVelocity;
-
+    private InputSystem_Actions controls; 
     private bool isHorizontalBoosting;
     private bool isVerticalBoosting;
-
     private float lastHorizontalDirection;
-
-    [SerializeField] private float speedThreshold = 15f;
-    [SerializeField] private float decelerationStrength = 0.5f;
-
-    private bool isInvincible;
-    private bool isCollidingWithDanger;
-
-    private EnemyController[] enemies;
-    private EnemyGoomba[] enemygoombas;
-    private MovingPlatform[] platforms;
-    private Crusher[] crushers;
     private float _previousFrameFallVelocity;
+    private float jumpVelocity;
 
+    [Header("Player Stats")]
+    public bool canDoubleJump = true;
+    [SerializeField] private AbilityType _equippedAbility;
+    public int health = 1;
+
+    [Header("Bomb")]
     public GameObject bombPrefab;
     public Transform bombSpawnPoint;
     public float explosionForce = 10f;
 
-    private Collider2D _myCollider;
-
-    private float accelerationProgress = 0f;
-    public float accelerationTime = 2f;
-
-    private float jumpVelocity;
-
-    // New variables for color cycling during invincibility
+    [Header("Invincibility")]
     public Color[] invincibilityColors;
     public float colorChangeSpeed = 0.1f;
     private Coroutine invincibilityCoroutine;
+
+    [Header("Data")]
+    [SerializeField] private AbilityData _abilityData;
+    [SerializeField] private bool isGrounded;
+    [SerializeField] private bool isHeadache;
+    [SerializeField] private bool isInvincible;
+    [SerializeField] private Vector3 _respawnPoint;
+    [SerializeField] private float currentXVelocity;
+    [SerializeField] private float currentYVelocity;
+    private Rigidbody2D rb;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private EnemyController[] enemies;
+    private EnemyGoomba[] enemygoombas;
+    private MovingPlatform[] platforms;
+    private Crusher[] crushers;
+    private Collider2D _myCollider;
+    private bool isCollidingWithDanger;
+    private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -326,12 +321,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void ApplyDeceleration() {
-        if (Mathf.Abs(rb.velocity.x) > speedThreshold) {
+        if (Mathf.Abs(rb.velocity.x) > decelerationSpeedThreshold) {
             float deceleration = decelerationStrength * Time.deltaTime * Mathf.Sign(rb.velocity.x);
             float newVelocityX = rb.velocity.x - deceleration;
 
-            if (Mathf.Abs(newVelocityX) < speedThreshold) {
-                newVelocityX = speedThreshold * Mathf.Sign(rb.velocity.x);
+            if (Mathf.Abs(newVelocityX) < decelerationSpeedThreshold) {
+                newVelocityX = decelerationSpeedThreshold * Mathf.Sign(rb.velocity.x);
             }
 
             rb.velocity = new Vector2(newVelocityX, rb.velocity.y);

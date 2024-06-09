@@ -140,33 +140,33 @@ MonoBehaviour:
   moveSpeed: 20
   desiredJumpHeight: 4
   maxJumps: 1
-  canDoubleJump: 1
-  health: 1
-  _equippedAbility: 0
-  _abilityData: {fileID: 11400000, guid: db98e12522ec040bfb9b9c8b2b524d9f, type: 2}
-  isGrounded: 0
-  isHeadache: 0
-  _respawnPoint: {x: 0, y: 0, z: 0}
-  currentXVelocity: 0
-  currentYVelocity: 0
-  speedThreshold: 15
+  decelerationSpeedThreshold: 15
   decelerationStrength: 8
+  accelerationTime: 1
+  canDoubleJump: 1
+  _equippedAbility: 0
+  health: 1
   bombPrefab: {fileID: 6668987927851335791, guid: 4e5de56206668dc40b385c84c4525290, type: 3}
   bombSpawnPoint: {fileID: 5285510587253440786}
   explosionForce: 80
-  accelerationTime: 1
   invincibilityColors:
-  - {r: 1, g: 0.97662324, b: 0, a: 0}
-  - {r: 1, g: 0.40315855, b: 0, a: 0}
-  - {r: 1, g: 0, b: 0.11694193, a: 0}
-  - {r: 1, g: 0, b: 0.6544962, a: 0}
-  - {r: 0.37635612, g: 0, b: 1, a: 0}
-  - {r: 0, g: 0.07612944, b: 1, a: 0}
-  - {r: 0, g: 0.7453537, b: 1, a: 0}
-  - {r: 0, g: 1, b: 0.3699534, a: 0}
-  - {r: 0.036716342, g: 1, b: 0, a: 0}
-  - {r: 0.51446724, g: 1, b: 0, a: 0}
-  colorChangeSpeed: 0.05
+  - {r: 1, g: 0.97662324, b: 0, a: 1}
+  - {r: 1, g: 0.40315855, b: 0, a: 1}
+  - {r: 1, g: 0, b: 0.11694193, a: 1}
+  - {r: 1, g: 0, b: 0.6544962, a: 1}
+  - {r: 0.5040233, g: 0.21026169, b: 0.990566, a: 1}
+  - {r: 0, g: 0.7453537, b: 1, a: 1}
+  - {r: 0, g: 1, b: 0.3699534, a: 1}
+  - {r: 0.036716342, g: 1, b: 0, a: 1}
+  - {r: 0.51446724, g: 1, b: 0, a: 1}
+  colorChangeSpeed: 0.1
+  _abilityData: {fileID: 11400000, guid: db98e12522ec040bfb9b9c8b2b524d9f, type: 2}
+  isGrounded: 0
+  isHeadache: 0
+  isInvincible: 0
+  _respawnPoint: {x: 0, y: 0, z: 0}
+  currentXVelocity: 0
+  currentYVelocity: 0
 --- !u!210 &2913390537741170545
 SortingGroup:
   m_ObjectHideFlags: 0
