@@ -126,6 +126,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""DebugMenuToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""0637e29e-fc3b-4268-ad9a-6d2904ec02f8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -412,6 +421,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ScrollAbility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""962fda99-3e09-40b9-99e2-f96ad7358584"",
+                    ""path"": ""<Keyboard>/equals"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""DebugMenuToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1010,6 +1030,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_UseRocket = m_Player.FindAction("UseRocket", throwIfNotFound: true);
         m_Player_UseFreeze = m_Player.FindAction("UseFreeze", throwIfNotFound: true);
         m_Player_ScrollAbility = m_Player.FindAction("ScrollAbility", throwIfNotFound: true);
+        m_Player_DebugMenuToggle = m_Player.FindAction("DebugMenuToggle", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1100,6 +1121,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UseRocket;
     private readonly InputAction m_Player_UseFreeze;
     private readonly InputAction m_Player_ScrollAbility;
+    private readonly InputAction m_Player_DebugMenuToggle;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1115,6 +1137,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @UseRocket => m_Wrapper.m_Player_UseRocket;
         public InputAction @UseFreeze => m_Wrapper.m_Player_UseFreeze;
         public InputAction @ScrollAbility => m_Wrapper.m_Player_ScrollAbility;
+        public InputAction @DebugMenuToggle => m_Wrapper.m_Player_DebugMenuToggle;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1157,6 +1180,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ScrollAbility.started += instance.OnScrollAbility;
             @ScrollAbility.performed += instance.OnScrollAbility;
             @ScrollAbility.canceled += instance.OnScrollAbility;
+            @DebugMenuToggle.started += instance.OnDebugMenuToggle;
+            @DebugMenuToggle.performed += instance.OnDebugMenuToggle;
+            @DebugMenuToggle.canceled += instance.OnDebugMenuToggle;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1194,6 +1220,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @ScrollAbility.started -= instance.OnScrollAbility;
             @ScrollAbility.performed -= instance.OnScrollAbility;
             @ScrollAbility.canceled -= instance.OnScrollAbility;
+            @DebugMenuToggle.started -= instance.OnDebugMenuToggle;
+            @DebugMenuToggle.performed -= instance.OnDebugMenuToggle;
+            @DebugMenuToggle.canceled -= instance.OnDebugMenuToggle;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1387,6 +1416,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnUseRocket(InputAction.CallbackContext context);
         void OnUseFreeze(InputAction.CallbackContext context);
         void OnScrollAbility(InputAction.CallbackContext context);
+        void OnDebugMenuToggle(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
