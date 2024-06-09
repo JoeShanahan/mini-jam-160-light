@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8336a73ae211d334a957799b2b4a6564, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 15
-  desiredJumpHeight: 6
+  moveSpeed: 20
+  desiredJumpHeight: 4
   maxJumps: 1
   canDoubleJump: 1
   health: 1
@@ -244,7 +244,7 @@ MonoBehaviour:
   bombPrefab: {fileID: 6668987927851335791, guid: 4e5de56206668dc40b385c84c4525290, type: 3}
   bombSpawnPoint: {fileID: 5285510587253440786}
   explosionForce: 80
-  accelerationTime: 2
+  accelerationTime: 1
 --- !u!210 &2913390537741170545
 SortingGroup:
   m_ObjectHideFlags: 0

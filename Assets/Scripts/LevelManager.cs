@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         int levelNum = Mathf.Clamp(levelNumber, 0, _levelPrefabs.Count - 1);
         
         _currentLevel = Instantiate(_levelPrefabs[levelNum]);
-        _player.transform.position = _currentLevel.SpawnPosition;
+        _player.SetSpawnPosition(_currentLevel.SpawnPosition);
     }
 
     // Update is called once per frame
