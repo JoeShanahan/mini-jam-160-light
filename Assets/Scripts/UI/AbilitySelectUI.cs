@@ -20,7 +20,20 @@ public class AbilitySelectUI : MonoBehaviour
         }
         
         _template.gameObject.SetActive(false);
+    }
 
-        _spawnedItems[0].Select();
+    public void SelectAbility(AbilityType ability)
+    {
+        foreach (var item in _spawnedItems)
+        {
+            if (item.Ability.AbilityType == ability)
+            {
+                item.Select();
+            }
+            else
+            {
+                item.Deselect();
+            }
+        }
     }
 }

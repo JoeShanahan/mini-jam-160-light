@@ -11,6 +11,8 @@ public class AbilitySelectItem : MonoBehaviour
     private RectTransform _rt;
     private bool _isSelected;
     
+    public AbilityData.AbilityDataItem Ability { get; private set; }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -23,6 +25,7 @@ public class AbilitySelectItem : MonoBehaviour
     public void SetAbility(AbilityData.AbilityDataItem ability)
     {
         _abilityImage.sprite = ability.Icon;
+        Ability = ability;
         
         foreach (Image img in _dots)
         {

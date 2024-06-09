@@ -240,7 +240,10 @@ public class PlayerController : MonoBehaviour {
         isHeadache = hasContactAbove;
 
         if (hasContactAbove && hasContactBelow)
+        {
             Debug.Log("Get crushed idiot");
+            Die();
+        }
     }
 
     private void InvertYSpeed() {
@@ -418,6 +421,7 @@ public class PlayerController : MonoBehaviour {
         }
         _equippedAbility = (AbilityType) abilities.GetValue(currentIndex);
         Debug.Log($"Equipped ability: {_equippedAbility}");
+        FindFirstObjectByType<AbilitySelectUI>().SelectAbility(_equippedAbility);
     }
 
     private void LateUpdate()
