@@ -69,7 +69,7 @@ public class MovingPlatform : MonoBehaviour {
     }
 
     private void OnTriggerExit2D(Collider2D other) {
-        if (other.CompareTag("Player")) {
+        if (playerTransform != null && other.CompareTag("Player") && playerTransform.parent == transform) {
             playerTransform.SetParent(null);
             playerTransform = null;
         }
