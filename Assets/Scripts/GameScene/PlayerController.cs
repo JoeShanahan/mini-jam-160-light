@@ -23,7 +23,8 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private AbilityType _equippedAbility;
     [SerializeField] private AbilityData _abilityData;
-
+    [SerializeField] private Transform _graphicsObject;
+    
     private Rigidbody2D rb;
     private Animator animator;
     private Vector2 moveInput;
@@ -178,7 +179,19 @@ public class PlayerController : MonoBehaviour {
         }
 
         Debug.Log("You died :(");
-        //StreamerCam.NotifyStreamer(StreamerEvent.Death);
+        StreamerCam.NotifyStreamer(StreamerEvent.Death);
+        StartCoroutine(DeathRoutine());
+    }
+
+    private IEnumerator DeathRoutine()
+    {
+        controls.Player.Disable();
+        _graphicsObject.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1);
+
+        _graphicsObject.gameObject.SetActive(true);
+        controls.Player.Enable();
         Respawn();
     }
 
