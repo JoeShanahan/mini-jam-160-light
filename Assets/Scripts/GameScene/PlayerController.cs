@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Player Stats")]
     public bool canDoubleJump = true;
-    [SerializeField] private AbilityType _equippedAbility;
     public int health = 1;
 
     [Header("Bomb")]
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour {
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Player.Jump.performed += ctx => OnJump();
-        controls.Player.Interact.performed += ctx => OnAbilityPressed();
+        controls.Player.Interact.performed += ctx => FindFirstObjectByType<AbilityManager>().TryUseCurrentAbility();
         controls.Player.NextAbility.performed += ctx => CycleAbility(true);
         controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
         controls.Player.ScrollAbility.performed += ctx => CycleAbility(ctx.ReadValue<float>() > 0);
@@ -175,10 +174,11 @@ public class PlayerController : MonoBehaviour {
         if (controls.Player.Jump.triggered) {
             OnJump();
         }
-
+        /*
         if (controls.Player.Interact.triggered) {
             OnAbilityPressed();
         }
+        */
     }
 
     void OnJump() {
@@ -308,30 +308,36 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void DebugUseAbility(int ability) {
-        _equippedAbility = (AbilityType) ability;
-        OnAbilityPressed();
+        var ab = (AbilityType) ability;
+        UseAbility(ab);
     }
 
-    private void OnAbilityPressed() {
-        if (abilityTimers.ContainsKey(_equippedAbility)) {
-            Debug.Log($"{_equippedAbility} is on cooldown!");
-            return;
-        }
+    public void UseAbility(AbilityType ab)
+    {
+        float power = _abilityData.GetPower(ab);
 
-        float power = _abilityData.GetPower(_equippedAbility);
-
-        if (_equippedAbility == AbilityType.Boost)
+        if (ab == AbilityType.Boost)
             DoHorizontalBoost(power);
-        else if (_equippedAbility == AbilityType.Rocket)
+        else if (ab == AbilityType.Rocket)
             DoVerticalBoost(power);
-        else if (_equippedAbility == AbilityType.Freeze)
+        else if (ab == AbilityType.Freeze)
             DoFreeze(power);
-        else if (_equippedAbility == AbilityType.Bomb)
+        else if (ab == AbilityType.Bomb)
             DoBomb(power);
-        else if (_equippedAbility == AbilityType.Invincible)
+        else if (ab == AbilityType.Invincible)
             DoInvincibility(power);
     }
+    
+    /*
+    private void OnAbilityPressed() {
+    if (abilityTimers.ContainsKey(_equippedAbility)) {
+        Debug.Log($"{_equippedAbility} is on cooldown!");
+        return;
+    }
 
+
+    }
+    */
     private void DoFreeze(float time) {
         Debug.Log($"Freeze for {time} seconds!");
 
@@ -492,16 +498,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void CycleAbility(bool next) {
-        var abilities = System.Enum.GetValues(typeof(AbilityType));
-        int currentIndex = System.Array.IndexOf(abilities, _equippedAbility);
-        if (next) {
-            currentIndex = (currentIndex + 1) % abilities.Length;
-        } else {
-            currentIndex = (currentIndex - 1 + abilities.Length) % abilities.Length;
-        }
-        _equippedAbility = (AbilityType) abilities.GetValue(currentIndex);
-        Debug.Log($"Equipped ability: {_equippedAbility}");
-        FindFirstObjectByType<AbilitySelectUI>().SelectAbility(_equippedAbility);
+        FindFirstObjectByType<AbilityManager>().CycleAbility(next);
     }
 
     private void LateUpdate() {

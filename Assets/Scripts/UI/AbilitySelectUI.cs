@@ -22,6 +22,17 @@ public class AbilitySelectUI : MonoBehaviour
         _template.gameObject.SetActive(false);
     }
 
+    public void Refresh(AbilityType ability, int amount)
+    {
+        foreach (var item in _spawnedItems)
+        {
+            if (item.Ability.AbilityType == ability)
+            {
+                item.Refresh(amount);
+            }
+        }
+    }
+
     public void SelectAbility(AbilityType ability)
     {
         foreach (var item in _spawnedItems)

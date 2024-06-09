@@ -34,6 +34,22 @@ public class PlayerState
         UnlockedAchievements.Add(dat.name);
     }
 
+    public IEnumerable<AbilityType> AllAbilities()
+    {
+        HashSet<AbilityType> abs = new();
+        
+        foreach (var itm in Upgrades)
+        {
+            abs.Add(itm.Ability);
+        }
+
+        if (abs.Contains(AbilityType.Boost)) yield return AbilityType.Boost;
+        if (abs.Contains(AbilityType.Rocket)) yield return AbilityType.Rocket;
+        if (abs.Contains(AbilityType.Bomb)) yield return AbilityType.Bomb;
+        if (abs.Contains(AbilityType.Freeze)) yield return AbilityType.Freeze;
+        if (abs.Contains(AbilityType.Invincible)) yield return AbilityType.Invincible;
+    }
+
     public int GetAbilityLevel(AbilityType ability)
     {
         foreach (var itm in Upgrades)

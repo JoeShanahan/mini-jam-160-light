@@ -15,13 +15,19 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         OnNewLevelReached(0);
+        _abilityManager.OnFirstLevelStart();
     }
 
+    private AbilityManager _abilityManager =>  FindFirstObjectByType<AbilityManager>();
+    
     private int _currentLevelIdx;
 
     public void OnNewLevelReached(int levelNumber)
     {
         _currentLevelIdx = levelNumber;
+        
+        if (levelNumber != 0)
+            _abilityManager.OnLevelComplete();
 
         if (_currentLevel != null)
         {
@@ -49,6 +55,7 @@ public class LevelManager : MonoBehaviour
 
         _currentLevel = Instantiate(_levelPrefabs[_currentLevelIdx]);
         StartCoroutine(SnapCamRoutine());
+        _abilityManager.OnLevelRestart();
     }
 
     private IEnumerator SnapCamRoutine()

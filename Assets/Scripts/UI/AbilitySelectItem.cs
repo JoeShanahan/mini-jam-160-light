@@ -55,6 +55,11 @@ public class AbilitySelectItem : MonoBehaviour
         _abilityImage.DOColor(Color.white, time);
     }
 
+    public void Refresh(int count)
+    {
+        Debug.LogWarning($"{Ability.AbilityType}: is now {count}");
+    }
+
     // Update is called once per frame
     void Update()
     {
