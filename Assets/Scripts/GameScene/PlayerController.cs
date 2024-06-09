@@ -102,7 +102,10 @@ public class PlayerController : MonoBehaviour {
         _myCollider.enabled = !trueFalse;
 
         if (trueFalse)
+        {
+            transform.SetParent(null);
             rb.velocity = Vector3.zero;
+        }
     }
     
 

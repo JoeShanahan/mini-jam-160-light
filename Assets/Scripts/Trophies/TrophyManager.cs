@@ -85,6 +85,9 @@ public class TrophyManager : MonoBehaviour
     
     private void GetTrophy(TrophyData dat, PlayerState player)
     {
+        if (player.UnlockedAchievements.Contains(dat.name))
+            return;
+        
         player.UnlockedAchievements.Add(dat.name);
         _gameUI.UnlockTrophy(dat, _allTrophies, player);
     }

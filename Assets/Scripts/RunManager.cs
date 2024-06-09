@@ -85,9 +85,65 @@ public class RunManager : MonoBehaviour
             FindFirstObjectByType<Porthole>()?.OpenPorthole();
     }
 
+    private bool _isGameComplete;
+
     public void OnGameComplete()
     {
+        if (_isGameComplete)
+            return;
+
+        _isGameComplete = true;
+        
         _gameUI.OnGameComplete(_runState, _playerState);
+
+        bool isNewRecord = true;
+
+        if (_playerState.BestOverallTime > 0)
+        {
+            float previousBest = _playerState.BestOverallTime / 10f;
+            isNewRecord = _playerState.BestOverallTime == 0 || previousBest > _runState.RunTime;
+
+            if (isNewRecord)
+            {
+                Debug.Log($"New overall record! {_runState.RunTime} < {previousBest}");
+            }
+        }
+
+        if (isNewRecord)
+        {
+            _playerState.BestRunTimes = new List<int>();
+            _playerState.BestOverallTime = (int)(_runState.RunTime * 10);
+            
+            foreach (float f in _runState.CurrentTimes)
+            {
+                _playerState.BestRunTimes.Add((int) (f * 10));
+            }
+        }
+
+        List<int> bestSectionTimes = new();
+        
+        while (_playerState.BestSectionTimes.Count < 3)
+            _playerState.BestSectionTimes.Add(0);
+
+        for (int i = 0; i < 3; i++)
+        {
+            float oldTime = _playerState.BestSectionTimes[i] / 10f;
+            float newTime = _runState.CurrentTimes[i];
+
+            if (_playerState.BestSectionTimes[i] == 0 || newTime < oldTime)
+            {
+                Debug.Log($"World {i+1} has a new record! ({newTime} < {oldTime}");
+                bestSectionTimes.Add((int) (newTime * 10));
+            }
+            else
+            {
+                Debug.Log($"World {i+1} does not have a record! ({newTime} > {oldTime}");
+                bestSectionTimes.Add(_playerState.BestSectionTimes[i]);
+            }
+        }
+
+        _playerState.BestSectionTimes = bestSectionTimes;
+        _playerState.SaveToPrefs();
     }
     
     public void SavePlayerProgress()
