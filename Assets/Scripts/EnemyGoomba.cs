@@ -9,15 +9,20 @@ public class EnemyGoomba : MonoBehaviour {
     public int health = 1;
     private float originalGravityScale;
     private bool isFrozen = false;
+    public Transform groundCheck;
+    public float groundCheckDistance = 1f;
+    public LayerMask groundLayer;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
+        originalGravityScale = rb.gravityScale;
     }
 
     void Update() {
         if (!isFrozen) {
             Move();
-        }        
+            CheckGround();
+        }
     }
 
     void Move() {
@@ -28,15 +33,31 @@ public class EnemyGoomba : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Player") == false) {
-            movingLeft = !movingLeft;
-        }
+    void CheckGround() {
+        Vector2 direction = movingLeft ? Vector2.left : Vector2.right;
+        RaycastHit2D groundInfo = Physics2D.Raycast(groundCheck.position, direction, groundCheckDistance, groundLayer);
+        RaycastHit2D groundBelowInfo = Physics2D.Raycast(groundCheck.position + new Vector3(direction.x * groundCheckDistance, 0, 0), Vector2.down, groundCheckDistance, groundLayer);
 
+        if (groundInfo.collider == null || groundBelowInfo.collider == null) {
+            movingLeft = !movingLeft;
+            Flip();
+        }
+    }
+
+    void Flip() {
+        Vector3 theScale = transform.localScale;
+        theScale.x *= -1;
+        transform.localScale = theScale;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Player")) {
             if (collision.transform.position.y > transform.position.y + 0.5f) {
                 Die();
             }
+        } else {
+            movingLeft = !movingLeft;
+            Flip();
         }
     }
 
