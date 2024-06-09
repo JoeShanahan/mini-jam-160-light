@@ -96,6 +96,19 @@ public class PlayerController : MonoBehaviour {
         jumpVelocity = Mathf.Sqrt(2 * Mathf.Abs(Physics2D.gravity.y) * desiredJumpHeight);
     }
 
+    public void SetRigidBodyKinematic(bool trueFalse)
+    {
+        rb.isKinematic = trueFalse;
+        _myCollider.enabled = !trueFalse;
+
+        if (trueFalse)
+        {
+            transform.SetParent(null);
+            rb.velocity = Vector3.zero;
+        }
+    }
+    
+
     void OnEnable() {
         controls.Player.Enable();
     }
