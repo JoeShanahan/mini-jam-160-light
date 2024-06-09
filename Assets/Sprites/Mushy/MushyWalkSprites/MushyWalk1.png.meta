@@ -1,16 +1,10 @@
 fileFormatVersion: 2
-guid: 15a245d6ca7c2f94b958f1e50d096e9b
+guid: 34f49f2a6cd368d4782635d022cfb9d6
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8726012821235280947
-    second: MushyJump_0
-  - first:
-      213: -8838344918019720671
-    second: MushyJump_1
-  - first:
-      213: -443472414852163431
-    second: MushyJump_2
+      213: 1851766216760406857
+    second: MushyWalk1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -52,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -106,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MushyJump_0
+      name: MushyWalk1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -114,59 +108,15 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 33cab33bd66091970800000000000000
-      internalID: 8726012821235280947
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MushyJump_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 12a3e07ef14e75580800000000000000
-      internalID: -8838344918019720671
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MushyJump_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9985d05303878d9f0800000000000000
-      internalID: -443472414852163431
+      spriteID: 943b215209bc2b910800000000000000
+      internalID: 1851766216760406857
       vertices: []
       indices: 
       edges: []
@@ -175,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: c3378fefbca091f41ba2ae87769fa776
+    spriteID: b6ab742e4bd2a7b489b1698c9718c6d1
     internalID: 0
     vertices: []
     indices: 
@@ -183,9 +133,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MushyJump_0: 8726012821235280947
-      MushyJump_1: -8838344918019720671
-      MushyJump_2: -443472414852163431
+      MushyWalk1_0: 1851766216760406857
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

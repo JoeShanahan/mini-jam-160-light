@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ff8c3fd098ac48b43bf58dbe4e27f909
+guid: a5cb331e37704e3458b6276a93bfde19
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2063678338947884836
-    second: MushyWalk_0
+      213: 6503452184169704396
+    second: MushyWalk2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,9 +46,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 0
+  spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 16
@@ -96,24 +96,11 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: MushyWalk_0
+      name: MushyWalk2_0
       rect:
         serializedVersion: 2
         x: 0
@@ -121,81 +108,15 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 42728a3f388a3ac10800000000000000
-      internalID: 2063678338947884836
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MushyWalk_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a2c3ba44086ebcb4eb447aff146d8e2b
-      internalID: -961694475
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MushyWalk_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b5388b6fd12001d4aa2ce266b6b09d49
-      internalID: -1425654629
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: MushyWalk_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 39a9221fa6381324d9b34d28e2f17d1f
-      internalID: -468157254
+      spriteID: ccb6c230e47e04a50800000000000000
+      internalID: 6503452184169704396
       vertices: []
       indices: 
       edges: []
@@ -204,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 622275877e949174c95831a72bd7da2b
+    spriteID: 9a5c30e1644914849bcc0fb5631f63ba
     internalID: 0
     vertices: []
     indices: 
@@ -212,10 +133,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      MushyWalk_0: 2063678338947884836
-      MushyWalk_1: -961694475
-      MushyWalk_2: -1425654629
-      MushyWalk_3: -468157254
+      MushyWalk2_0: 6503452184169704396
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
