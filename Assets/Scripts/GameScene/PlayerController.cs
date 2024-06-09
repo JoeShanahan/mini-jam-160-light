@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -52,7 +53,8 @@ public class PlayerController : MonoBehaviour {
     private EnemyGoomba[] enemygoombas;
     private MovingPlatform[] platforms;
     private Crusher[] crushers;
-
+    private float _previousFrameFallVelocity;
+    
     public GameObject bombPrefab;
     public Transform bombSpawnPoint;
     public float explosionForce = 10f;
@@ -187,14 +189,23 @@ public class PlayerController : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Enemy")) {
+        bool isSpike = collision.gameObject.CompareTag("Spike");
+        bool isEnemy = collision.gameObject.CompareTag("Enemy");
+        
+        if (isSpike || isEnemy)
+        {
+            bool fallingOnDanger = collision.contacts[0].normal.y > 0.2f;
+            
+            if (fallingOnDanger && isEnemy) {
+                collision.gameObject.GetComponent<BaseEnemy>().Die();
+                InvertYSpeed();
+                return;
+            }
+            
             isCollidingWithDanger = true;
 
-            if (collision.contacts[0].normal.y > 0.5f) {
-                InvertYSpeed();
-            }
-
             if (!isInvincible) {
+                
                 Die();
             }
         }
@@ -233,7 +244,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void InvertYSpeed() {
-        rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
+        float yVel = _previousFrameFallVelocity;
+        rb.velocity = new Vector2(rb.velocity.x, -yVel);
     }
 
     public void DebugUseAbility(int ability) {
@@ -406,5 +418,10 @@ public class PlayerController : MonoBehaviour {
         }
         _equippedAbility = (AbilityType) abilities.GetValue(currentIndex);
         Debug.Log($"Equipped ability: {_equippedAbility}");
+    }
+
+    private void LateUpdate()
+    {
+        _previousFrameFallVelocity = rb.velocity.y;
     }
 }

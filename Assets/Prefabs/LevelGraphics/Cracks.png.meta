@@ -257,7 +257,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Cracks_0: 2522378773345068697
+      Cracks_1: -2674641774437632702
+      Cracks_2: 289633948872884710
+      Cracks_3: 7498944902602917901
+      Cracks_4: -5822648679201629909
+      Cracks_5: -6897809294359627686
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

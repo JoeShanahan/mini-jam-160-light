@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyGoomba : MonoBehaviour {
+public class EnemyGoomba : BaseEnemy {
 
     public float speed = 2f;
     private bool movingLeft = true;
@@ -112,11 +112,6 @@ public class EnemyGoomba : MonoBehaviour {
         if (health <= 0) {
             Die();
         }
-    }
-
-    public void Die() {
-        Debug.Log("Enemy unalived :O");
-        Destroy(gameObject);
     }
 
     public void Freeze(float time) {

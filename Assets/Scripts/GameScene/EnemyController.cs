@@ -1,7 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-public class EnemyController : MonoBehaviour {
+public class BaseEnemy : MonoBehaviour
+{
+    public virtual void Die()
+    {
+        Debug.Log("Enemy unalived :O");
+        Destroy(gameObject);
+    }
+}
+
+public class EnemyController : BaseEnemy {
 
     private Rigidbody2D rb;
     public Transform[] patrolPoints;
@@ -34,24 +43,11 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.CompareTag("Player")) {
-            if (collision.transform.position.y > transform.position.y + 0.5f) {
-                Die();
-            }
-        }
-    }
-
     public void TakeDamage(int damage) { 
         health -= damage;
         if (health <= 0) {
             Die();
         }
-    }
-
-    public void Die() {
-        Debug.Log("Enemy unalived :O");
-        Destroy(gameObject);
     }
 
     public void Freeze(float time) {
