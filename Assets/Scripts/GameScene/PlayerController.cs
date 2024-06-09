@@ -190,6 +190,8 @@ public class PlayerController : MonoBehaviour {
             return;
         }
 
+        animator.SetTrigger("hasDied");
+
         Debug.Log("You died :(");
         //StreamerCam.NotifyStreamer(StreamerEvent.Death);
         Respawn();
@@ -346,6 +348,8 @@ public class PlayerController : MonoBehaviour {
 
     private void DoHorizontalBoost(float power) {
         Debug.Log("Boost!");
+
+        animator.SetTrigger("hasBoosted");
 
         float dashDirection = moveInput.x == 0 ? lastHorizontalDirection : Mathf.Sign(moveInput.x);
 
