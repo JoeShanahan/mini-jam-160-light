@@ -727,7 +727,7 @@ GameObject:
   - component: {fileID: 851702179329621769}
   - component: {fileID: 8180562600129247006}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Text:TrophyTitle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2113,7 +2113,7 @@ GameObject:
   - component: {fileID: 2864538575550526289}
   - component: {fileID: 5475856763221923095}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Image:TrophyBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2584,7 +2584,7 @@ GameObject:
   - component: {fileID: 4709734935853060834}
   - component: {fileID: 8143674443030237867}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Image:TrophyFG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3246,6 +3246,7 @@ GameObject:
   - component: {fileID: 2394261478278282970}
   - component: {fileID: 4703261917013079233}
   - component: {fileID: 6221337940927190566}
+  - component: {fileID: 2181517898288970089}
   m_Layer: 5
   m_Name: TrophyToast
   m_TagString: Untagged
@@ -3328,6 +3329,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!114 &2181517898288970089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2408768709784353888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4665aa12fdaa8452e809de86dadf3fe1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _inactiveX: 330
+  _activeX: -16
+  _transitionTime: 0.4
+  _visibleTime: 3
+  _trophyBg: {fileID: 5475856763221923095}
+  _trophyFg: {fileID: 8143674443030237867}
+  _trophySprite: {fileID: 4589889781825201324}
+  _topText: {fileID: 8180562600129247006}
+  _bottomText: {fileID: 2489578328580402194}
+  _bronzeColor: {r: 0.7254902, g: 0.5411765, b: 0.28627452, a: 1}
+  _silverColor: {r: 0.8117647, g: 0.8117647, b: 0.8117647, a: 1}
+  _goldColor: {r: 1, g: 0.89411765, b: 0.3529412, a: 1}
+  _platinumColor: {r: 0.44705883, g: 0.78431374, b: 1, a: 1}
 --- !u!1 &2465999029189990367
 GameObject:
   m_ObjectHideFlags: 0
@@ -3732,7 +3758,7 @@ GameObject:
   - component: {fileID: 450671030016736956}
   - component: {fileID: 2489578328580402194}
   m_Layer: 5
-  m_Name: Text (TMP) (1)
+  m_Name: Text:TrophyDesc
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5065,6 +5091,7 @@ MonoBehaviour:
   _timeUI: {fileID: 2608893479993641178}
   _endUI: {fileID: 6062980909741487252}
   _trophyPips: {fileID: 71263915355812693}
+  _trophyToast: {fileID: 2181517898288970089}
 --- !u!1 &3744485070869113086
 GameObject:
   m_ObjectHideFlags: 0
@@ -8181,7 +8208,7 @@ GameObject:
   - component: {fileID: 3002265985095713704}
   - component: {fileID: 2020694884118264815}
   m_Layer: 5
-  m_Name: Image (2)
+  m_Name: Image:Gradient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9216,7 +9243,7 @@ GameObject:
   - component: {fileID: 9185155607959594421}
   - component: {fileID: 4589889781825201324}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Image:TrophyIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

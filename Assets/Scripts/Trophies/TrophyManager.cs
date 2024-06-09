@@ -9,10 +9,9 @@ public class TrophyManager : MonoBehaviour
     [SerializeField] 
     private GameUI _gameUI;
     
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void InitTrophies(PlayerState player)
     {
-        _gameUI.InitTrophies(_allTrophies);
+        _gameUI.InitTrophies(_allTrophies, player.UnlockedAchievements);
     }
 
     public void CheckForTrophies(RunState run, PlayerState player)
@@ -64,7 +63,8 @@ public class TrophyManager : MonoBehaviour
 
     private void GetTrophy(TrophyData dat, PlayerState player)
     {
-        Debug.Log($"Trophy Get! {dat.DisplayName}");
+        player.UnlockedAchievements.Add(dat.name);
+        _gameUI.UnlockTrophy(dat, _allTrophies, player);
     }
     // Update is called once per frame
     void Update()

@@ -33,6 +33,7 @@ public class RunManager : MonoBehaviour
         }
         
         _gameUI.OnWorldChange(0, _playerState);
+        _trophyManager.InitTrophies(_playerState);
     }
 
     // Update is called once per frame
