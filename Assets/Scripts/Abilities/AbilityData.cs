@@ -12,6 +12,9 @@ public class AbilityData : ScriptableObject {
         public float Power;
         public float Cooldown;
         public Color Color;
+        public int ShopPrice;
+
+        [TextArea(1, 5)] public string Description;
     }
 
     public IEnumerable<AbilityDataItem> AllAbilities => _abilities;
