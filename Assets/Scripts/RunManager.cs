@@ -11,6 +11,9 @@ public class RunManager : MonoBehaviour
     [SerializeField] private GameUI _gameUI;
     [SerializeField] private LevelManager _levelManager;
     [SerializeField] private TrophyManager _trophyManager;
+
+    public RunState RunState => _runState;
+    public PlayerState PlayerState => _playerState;
     
     private bool _isActive = true;
     

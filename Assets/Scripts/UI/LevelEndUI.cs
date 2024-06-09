@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class LevelEndUI : MonoBehaviour
 {
     [SerializeField] private List<LevelEndSummaryItem> _listItems;
+    [SerializeField] private RectTransform _shop;
     
     public void OnGameComplete(RunState run, PlayerState player)
     {
@@ -26,7 +27,8 @@ public class LevelEndUI : MonoBehaviour
 
     public void ButtonPressShop()
     {
-        
+        _shop.gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 
     public void ButtonPressMenu()
