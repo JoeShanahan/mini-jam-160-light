@@ -68,7 +68,6 @@ public class PlayerController : MonoBehaviour {
     private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
     void Awake() {
-
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -136,6 +135,12 @@ public class PlayerController : MonoBehaviour {
 
         animator.SetBool("isWalking", isWalking);
 
+        if (rb.velocity.y < 0 && !isGrounded) {
+            animator.SetBool("isFalling", true);
+        } else {
+            animator.SetBool("isFalling", false);
+        }
+
         List<AbilityType> keys = new List<AbilityType>(abilityTimers.Keys);
         foreach (AbilityType ability in keys) {
             abilityTimers[ability] -= Time.deltaTime;
@@ -161,7 +166,7 @@ public class PlayerController : MonoBehaviour {
             remainingJumps--;
             isGrounded = false;
             animator.SetTrigger("hasJumped");
-        } 
+        }
     }
 
     public void TakeDamage(int damage, Vector2 explosionPosition) {
