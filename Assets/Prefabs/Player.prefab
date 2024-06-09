@@ -163,17 +163,7 @@ MonoBehaviour:
   moveSpeed: 20
   desiredJumpHeight: 4
   maxJumps: 1
-  canDoubleJump: 1
-  health: 1
-  _equippedAbility: 0
-  _abilityData: {fileID: 11400000, guid: db98e12522ec040bfb9b9c8b2b524d9f, type: 2}
   _graphicsObject: {fileID: 161056364913879647}
-  isGrounded: 0
-  isHeadache: 0
-  _respawnPoint: {x: 0, y: 0, z: 0}
-  currentXVelocity: 0
-  currentYVelocity: 0
-  speedThreshold: 15
   decelerationSpeedThreshold: 15
   decelerationStrength: 8
   accelerationTime: 1
