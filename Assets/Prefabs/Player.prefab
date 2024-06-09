@@ -120,6 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5986554934098960622}
   - component: {fileID: 6092722723733242413}
+  - component: {fileID: -951024595646067176}
   - component: {fileID: 2913390537741170545}
   - component: {fileID: 2821252566248814561}
   - component: {fileID: 7876751387141923216}
@@ -191,6 +192,19 @@ MonoBehaviour:
   _respawnPoint: {x: 0, y: 0, z: 0}
   currentXVelocity: 0
   currentYVelocity: 0
+--- !u!114 &-951024595646067176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6008522711375609754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46534d5c2541a34419daa955188b7899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debugCanvas: {fileID: 0}
 --- !u!210 &2913390537741170545
 SortingGroup:
   m_ObjectHideFlags: 0
