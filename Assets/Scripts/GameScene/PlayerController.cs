@@ -447,20 +447,23 @@ public class PlayerController : MonoBehaviour {
 
     private void UpdateMovement() {
         if (moveInput.x != 0) {
+            accelerationProgress += Time.deltaTime / accelerationTime;
+            /* TODO fix me
             if (isGrounded) {
                 accelerationProgress += Time.deltaTime / accelerationTime;
             } else {
                 accelerationProgress = Mathf.Max(accelerationProgress - Time.deltaTime / accelerationTime, 0f);
             }
+            */
             float easedProgress = ExponentialEaseOut(accelerationProgress);
             rb.velocity = new Vector2(Mathf.Sign(moveInput.x) * easedProgress * moveSpeed, rb.velocity.y);
 
             spriteRenderer.flipX = moveInput.x < 0;
         } else {
             accelerationProgress = 0f;
-            if (isGrounded) {
+            // if (isGrounded) {
                 rb.velocity = new Vector2(0, rb.velocity.y);
-            }
+            // }
         }
     }
 
