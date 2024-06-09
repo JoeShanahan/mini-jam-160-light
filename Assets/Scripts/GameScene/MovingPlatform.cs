@@ -13,6 +13,12 @@ public class MovingPlatform : MonoBehaviour {
     private bool isFrozen = false;
 
     void Update() {
+        // Not sure how this happens, haven't got enough time to debug it
+        if (transform.parent == null)
+        {
+            return;
+        }
+        
         if (!isFrozen) {
             MoveTowardsWaypoint();
         }
@@ -20,8 +26,14 @@ public class MovingPlatform : MonoBehaviour {
 
     void MoveTowardsWaypoint() {
         if (waypoints.Length == 0) return;
-
+        
         Transform targetWaypoint = waypoints[currentWaypointIndex];
+
+        if (targetWaypoint == null)
+        {
+            return;
+        }
+        
         Vector3 direction = targetWaypoint.position - transform.position;
         float distance = speed * Time.deltaTime;
 
