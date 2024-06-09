@@ -9,6 +9,7 @@ public class EnemyController : MonoBehaviour {
     private int currentPointIndex = 0;
     private bool isFrozen = false;
     private float originalGravityScale;
+    public int health = 1;
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -41,7 +42,14 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    void Die() {
+    public void TakeDamage(int damage) { 
+        health -= damage;
+        if (health <= 0) {
+            Die();
+        }
+    }
+
+    public void Die() {
         Debug.Log("Enemy unalived :O");
         Destroy(gameObject);
     }

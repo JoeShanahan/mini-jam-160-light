@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour {
     private bool isCollidingWithDanger;
 
     private EnemyController[] enemies;
+    private EnemyGoomba[] enemygoombas;
     private MovingPlatform[] platforms;
     private Crusher[] crushers;
 
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviour {
         controls.Player.Interact.performed += ctx => OnAbilityPressed();
 
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        enemygoombas = FindObjectsByType<EnemyGoomba>(FindObjectsSortMode.None);
         platforms = FindObjectsByType<MovingPlatform>(FindObjectsSortMode.None);
         crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
 
@@ -248,6 +250,10 @@ public class PlayerController : MonoBehaviour {
 
         foreach (var crusher in crushers) {
             crusher.Freeze(time);
+        }
+
+        foreach (var enemygoomba in enemygoombas) {
+            enemygoomba.Freeze(time);
         }
 
         StartCooldown(AbilityType.Freeze);
