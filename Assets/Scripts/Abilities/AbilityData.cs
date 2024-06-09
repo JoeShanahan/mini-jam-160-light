@@ -11,8 +11,10 @@ public class AbilityData : ScriptableObject {
         public Sprite Icon;
         public float Power;
         public float Cooldown;
+        public Color Color;
     }
 
+    public IEnumerable<AbilityDataItem> AllAbilities => _abilities;
     [SerializeField] private List<AbilityDataItem> _abilities;
 
     public float GetPower(AbilityType atype) {

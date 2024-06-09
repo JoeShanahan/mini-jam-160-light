@@ -15,26 +15,31 @@ MonoBehaviour:
   _abilities:
   - DisplayName: Boost
     AbilityType: 1
-    Icon: {fileID: 0}
+    Icon: {fileID: -1851662084, guid: 976537f869ada464f935d000e4518ab0, type: 3}
     Power: 35
     Cooldown: 1
+    Color: {r: 1, g: 0.75686276, b: 0.27058825, a: 1}
   - DisplayName: Rocket
     AbilityType: 2
-    Icon: {fileID: 0}
+    Icon: {fileID: 51386608, guid: 976537f869ada464f935d000e4518ab0, type: 3}
     Power: 70
     Cooldown: 0
+    Color: {r: 1, g: 0.34509805, b: 0.27058825, a: 1}
   - DisplayName: Freeze
     AbilityType: 3
-    Icon: {fileID: 0}
+    Icon: {fileID: -594440245, guid: 976537f869ada464f935d000e4518ab0, type: 3}
     Power: 5
     Cooldown: 1
+    Color: {r: 0.4117647, g: 0.85882354, b: 1, a: 1}
   - DisplayName: Bomb
     AbilityType: 4
-    Icon: {fileID: 0}
+    Icon: {fileID: -995092896, guid: 976537f869ada464f935d000e4518ab0, type: 3}
     Power: 5
     Cooldown: 1
+    Color: {r: 0.85882354, g: 0.49803922, b: 0, a: 1}
   - DisplayName: Invincible
     AbilityType: 5
-    Icon: {fileID: 0}
+    Icon: {fileID: 1792840932, guid: 976537f869ada464f935d000e4518ab0, type: 3}
     Power: 5
     Cooldown: 1
+    Color: {r: 0, g: 0.85882354, b: 0.05882353, a: 1}
