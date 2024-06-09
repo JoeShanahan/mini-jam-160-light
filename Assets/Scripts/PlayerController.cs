@@ -173,6 +173,11 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Enemy")) {
             isCollidingWithDanger = true;
+
+            if (collision.contacts[0].normal.y > 0.5f) {
+                InvertYSpeed();
+            }
+
             if (!isInvincible) {
                 Die();
             }
@@ -209,6 +214,10 @@ public class PlayerController : MonoBehaviour {
 
         if (hasContactAbove && hasContactBelow)
             Debug.Log("Get crushed idiot");
+    }
+
+    private void InvertYSpeed() {
+        rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
     }
 
     public void DebugUseAbility(int ability) {
