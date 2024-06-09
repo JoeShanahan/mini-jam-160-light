@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5538440486778023209}
   - component: {fileID: 415299042615453839}
   m_Layer: 11
-  m_Name: EnemyGoomba
+  m_Name: EnemyGoombaFall
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +59,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 704
-  enableGroundDetection: 1
+  enableGroundDetection: 0
 --- !u!50 &5538440486778023209
 Rigidbody2D:
   serializedVersion: 4

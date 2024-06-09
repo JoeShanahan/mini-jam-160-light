@@ -72,7 +72,9 @@ public class PlayerController : MonoBehaviour {
         controls.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         controls.Player.Move.canceled += ctx => moveInput = Vector2.zero;
         controls.Player.Jump.performed += ctx => OnJump();
-        controls.Player.Interact.performed += ctx => OnAbilityPressed();
+        controls.Player.Interact.performed += ctx => OnAbilityPressed();  // Binding Interact action to OnAbilityPressed method
+        controls.Player.NextAbility.performed += ctx => CycleAbility(true);
+        controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
 
         enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
         enemygoombas = FindObjectsByType<EnemyGoomba>(FindObjectsSortMode.None);
@@ -93,6 +95,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
+        // Poll input in Update for faster response
+        HandleInput();
+
         if (isGrounded) {
             remainingJumps = maxJumps;
         }
@@ -131,6 +136,16 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void HandleInput() {
+        if (controls.Player.Jump.triggered) {
+            OnJump();
+        }
+
+        if (controls.Player.Interact.triggered) {
+            OnAbilityPressed();
+        }
+    }
+
     void OnJump() {
         if (isGrounded || (canDoubleJump && remainingJumps > 0)) {
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
@@ -161,7 +176,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         Debug.Log("You died :(");
-        StreamerCam.NotifyStreamer(StreamerEvent.Death);
+        //StreamerCam.NotifyStreamer(StreamerEvent.Death);
         Respawn();
     }
 
@@ -174,6 +189,11 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.gameObject.CompareTag("Spike") || collision.gameObject.CompareTag("Enemy")) {
             isCollidingWithDanger = true;
+
+            if (collision.contacts[0].normal.y > 0.5f) {
+                InvertYSpeed();
+            }
+
             if (!isInvincible) {
                 Die();
             }
@@ -210,6 +230,10 @@ public class PlayerController : MonoBehaviour {
 
         if (hasContactAbove && hasContactBelow)
             Debug.Log("Get crushed idiot");
+    }
+
+    private void InvertYSpeed() {
+        rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y);
     }
 
     public void DebugUseAbility(int ability) {
@@ -267,7 +291,13 @@ public class PlayerController : MonoBehaviour {
         Rigidbody2D bombRb = bombInstance.GetComponent<Rigidbody2D>();
 
         Vector2 playerVelocity = rb.velocity;
-        Vector2 throwForce = new Vector2(power * transform.localScale.x, power);
+
+        float additionalVelocity = 5f;  
+        Vector2 throwForce = new Vector2(
+        playerVelocity.x + Mathf.Sign(playerVelocity.x) * additionalVelocity,
+        power
+    );
+
         bombRb.velocity = playerVelocity + throwForce;
 
         StartCooldown(AbilityType.Bomb);
@@ -300,11 +330,11 @@ public class PlayerController : MonoBehaviour {
 
         StartCooldown(AbilityType.Boost);
 
-        isHorizontalBoosting = true;
-        StartCoroutine(EndHorizontalBoostAfterTime(0.5f));
+        StartCoroutine(HorizontalBoostRoutine(0.5f));
     }
 
-    private IEnumerator EndHorizontalBoostAfterTime(float duration) {
+    private IEnumerator HorizontalBoostRoutine(float duration) {
+        isHorizontalBoosting = true;
         rb.gravityScale = 0;
         rb.velocity = new Vector3(rb.velocity.x, 0, 0);
         yield return new WaitForSeconds(duration - 0.1f);
@@ -320,11 +350,10 @@ public class PlayerController : MonoBehaviour {
         StartCooldown(AbilityType.Rocket);
 
         isVerticalBoosting = true;
-        StartCoroutine(EndVerticalBoostAfterTime(0.5f));
+        Invoke(nameof(EndVerticalBoost), 0.5f);
     }
 
-    private IEnumerator EndVerticalBoostAfterTime(float duration) {
-        yield return new WaitForSeconds(duration);
+    private void EndVerticalBoost() {
         isVerticalBoosting = false;
     }
 
@@ -365,5 +394,17 @@ public class PlayerController : MonoBehaviour {
 
     private float ExponentialEaseOut(float t) {
         return t == 1f ? 1f : 1 - Mathf.Pow(2, -10 * t);
+    }
+
+    private void CycleAbility(bool next) {
+        var abilities = System.Enum.GetValues(typeof(AbilityType));
+        int currentIndex = System.Array.IndexOf(abilities, _equippedAbility);
+        if (next) {
+            currentIndex = (currentIndex + 1) % abilities.Length;
+        } else {
+            currentIndex = (currentIndex - 1 + abilities.Length) % abilities.Length;
+        }
+        _equippedAbility = (AbilityType) abilities.GetValue(currentIndex);
+        Debug.Log($"Equipped ability: {_equippedAbility}");
     }
 }
