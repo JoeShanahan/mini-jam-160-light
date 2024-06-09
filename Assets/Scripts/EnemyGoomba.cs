@@ -9,9 +9,14 @@ public class EnemyGoomba : MonoBehaviour {
     public int health = 1;
     private float originalGravityScale;
     private bool isFrozen = false;
-    public Transform groundCheck;
+    public Transform groundCheckLeft;
+    public Transform groundCheckRight;
+    public Transform leftCheck;
+    public Transform rightCheck;
     public float groundCheckDistance = 1f;
+    public float sideCheckDistance = 0.5f;
     public LayerMask groundLayer;
+    public bool enableGroundDetection = true;
 
     void Start() {
         rb = GetComponent<Rigidbody2D>();
@@ -21,7 +26,12 @@ public class EnemyGoomba : MonoBehaviour {
     void Update() {
         if (!isFrozen) {
             Move();
-            CheckGround();
+            if (enableGroundDetection) {
+                CheckGroundLeft();
+                CheckGroundRight();
+            }
+            CheckLeft();
+            CheckRight();
         }
     }
 
@@ -33,13 +43,42 @@ public class EnemyGoomba : MonoBehaviour {
         }
     }
 
-    void CheckGround() {
-        Vector2 direction = movingLeft ? Vector2.left : Vector2.right;
-        RaycastHit2D groundInfo = Physics2D.Raycast(groundCheck.position, direction, groundCheckDistance, groundLayer);
-        RaycastHit2D groundBelowInfo = Physics2D.Raycast(groundCheck.position + new Vector3(direction.x * groundCheckDistance, 0, 0), Vector2.down, groundCheckDistance, groundLayer);
+    void CheckGroundLeft() {
+        RaycastHit2D groundInfoLeft = Physics2D.Raycast(groundCheckLeft.position, Vector2.down, groundCheckDistance, groundLayer);
 
-        if (groundInfo.collider == null || groundBelowInfo.collider == null) {
+        if (groundInfoLeft.collider == null && movingLeft) {
+            Debug.Log("No ground detected on the left. Turning around.");
             movingLeft = !movingLeft;
+            Flip();
+        }
+    }
+
+    void CheckGroundRight() {
+        RaycastHit2D groundInfoRight = Physics2D.Raycast(groundCheckRight.position, Vector2.down, groundCheckDistance, groundLayer);
+
+        if (groundInfoRight.collider == null && !movingLeft) {
+            Debug.Log("No ground detected on the right. Turning around.");
+            movingLeft = !movingLeft;
+            Flip();
+        }
+    }
+
+    void CheckLeft() {
+        RaycastHit2D leftInfo = Physics2D.Raycast(leftCheck.position, Vector2.left, sideCheckDistance, groundLayer);
+
+        if (leftInfo.collider != null) {
+            Debug.Log("Obstacle detected on the left. Turning around.");
+            movingLeft = false;
+            Flip();
+        }
+    }
+
+    void CheckRight() {
+        RaycastHit2D rightInfo = Physics2D.Raycast(rightCheck.position, Vector2.right, sideCheckDistance, groundLayer);
+
+        if (rightInfo.collider != null) {
+            Debug.Log("Obstacle detected on the right. Turning around.");
+            movingLeft = true;
             Flip();
         }
     }
@@ -48,6 +87,11 @@ public class EnemyGoomba : MonoBehaviour {
         Vector3 theScale = transform.localScale;
         theScale.x *= -1;
         transform.localScale = theScale;
+
+        groundCheckLeft.localPosition = new Vector3(-groundCheckLeft.localPosition.x, groundCheckLeft.localPosition.y, groundCheckLeft.localPosition.z);
+        groundCheckRight.localPosition = new Vector3(-groundCheckRight.localPosition.x, groundCheckRight.localPosition.y, groundCheckRight.localPosition.z);
+        leftCheck.localPosition = new Vector3(-leftCheck.localPosition.x, leftCheck.localPosition.y, leftCheck.localPosition.z);
+        rightCheck.localPosition = new Vector3(-rightCheck.localPosition.x, rightCheck.localPosition.y, rightCheck.localPosition.z);
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -56,8 +100,10 @@ public class EnemyGoomba : MonoBehaviour {
                 Die();
             }
         } else {
-            movingLeft = !movingLeft;
-            Flip();
+            if (enableGroundDetection) {
+                movingLeft = !movingLeft;
+                Flip();
+            }
         }
     }
 
