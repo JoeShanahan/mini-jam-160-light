@@ -27,7 +27,9 @@ public class LevelManager : MonoBehaviour
             Destroy(_currentLevel.gameObject);
 
         int levelNum = Mathf.Clamp(levelNumber, 0, _levelPrefabs.Count - 1);
-        
+
+        StreamerCam.NotifyStreamer(StreamerEvent.LevelComplete);
+
         _currentLevel = Instantiate(_levelPrefabs[levelNum]);
         _player.SetSpawnPosition(_currentLevel.SpawnPosition);
         FindFirstObjectByType<ClampedPlayerFollow>()?.SetBounds(_currentLevel);

@@ -238,6 +238,7 @@ public class PlayerController : MonoBehaviour {
 
             if (fallingOnDanger && isEnemy) {
                 collision.gameObject.GetComponent<BaseEnemy>().Die();
+                StreamerCam.NotifyStreamer(StreamerEvent.EnemyKill);
                 InvertYSpeed();
                 return;
             }
@@ -423,7 +424,7 @@ public class PlayerController : MonoBehaviour {
         Debug.Log($"Invincible for {time} seconds!");
 
         isInvincible = true;
-        // StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
+        StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
 
         invincibilityCoroutine = StartCoroutine(InvincibilityDuration(time));
 
