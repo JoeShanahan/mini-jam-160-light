@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -204,6 +205,7 @@ public class PlayerController : MonoBehaviour {
         transform.position = _respawnPoint;
         rb.velocity = Vector2.zero;
         isInvincible = false;
+        StartCoroutine(SnapCamRoutine());
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -456,5 +458,16 @@ public class PlayerController : MonoBehaviour {
 
     private void LateUpdate() {
         _previousFrameFallVelocity = rb.velocity.y;
+    }
+    
+    private IEnumerator SnapCamRoutine()
+    {
+        var cam = FindFirstObjectByType<CinemachinePositionComposer>();
+        Vector3 damping = cam.Damping;
+        cam.Damping = Vector3.zero;
+        cam.Lookahead.Enabled = false;
+        yield return null;
+        cam.Lookahead.Enabled = true;
+        cam.Damping = damping;
     }
 }

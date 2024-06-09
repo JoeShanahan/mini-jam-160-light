@@ -22,12 +22,18 @@ public class ClampedPlayerFollow : MonoBehaviour
             float widthMultiplier = Screen.width / (float) Screen.height;
             float initialWidth = VerticalBlockCount * widthMultiplier;
 
-            return initialWidth;
+            float streamerOverlayWidth = 275;
+            float canvasPixels = 720 * widthMultiplier;
+
+            float streamerPercentCovered = streamerOverlayWidth / canvasPixels;
+            float remaining = 1 - streamerPercentCovered;
+            
+            return initialWidth * remaining;
         }
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         float xPos = _player.transform.position.x;
         float yPos = _player.transform.position.y;
@@ -49,8 +55,8 @@ public class ClampedPlayerFollow : MonoBehaviour
             leftBound = rightBound = (leftBound + rightBound) / 2;
         }
 
-        xPos = Mathf.Clamp(xPos, leftBound, rightBound);
-        // yPos = Mathf.Clamp(yPos, lowerBound, upperBound);
+        // xPos = Mathf.Clamp(xPos, leftBound, rightBound);
+        yPos = Mathf.Clamp(yPos, lowerBound, upperBound);
 
         transform.position = new Vector3(xPos, yPos, 0);
     }

@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class LevelManager : MonoBehaviour
@@ -25,6 +27,18 @@ public class LevelManager : MonoBehaviour
         _currentLevel = Instantiate(_levelPrefabs[levelNum]);
         _player.SetSpawnPosition(_currentLevel.SpawnPosition);
         FindFirstObjectByType<ClampedPlayerFollow>()?.SetBounds(_currentLevel);
+        StartCoroutine(SnapCamRoutine());
+    }
+
+    private IEnumerator SnapCamRoutine()
+    {
+        var cam = FindFirstObjectByType<CinemachinePositionComposer>();
+        Vector3 damping = cam.Damping;
+        cam.Lookahead.Enabled = false;
+        cam.Damping = Vector3.zero;
+        yield return null;
+        cam.Lookahead.Enabled = true;
+        cam.Damping = damping;
     }
 
     // Update is called once per frame
