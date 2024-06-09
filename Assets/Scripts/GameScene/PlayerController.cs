@@ -15,7 +15,6 @@ public enum AbilityType {
 
 public class PlayerController : MonoBehaviour {
 
-
     [Header("Player Movement")]
     public float moveSpeed = 5f;
     public float desiredJumpHeight = 2f;
@@ -26,12 +25,13 @@ public class PlayerController : MonoBehaviour {
     public float accelerationTime = 2f;
     private Vector2 moveInput;
     private int remainingJumps;
-    private InputSystem_Actions controls; 
+    private InputSystem_Actions controls;
     private bool isHorizontalBoosting;
     private bool isVerticalBoosting;
     private float lastHorizontalDirection;
     private float _previousFrameFallVelocity;
     private float jumpVelocity;
+    private bool isWalking;
 
     [Header("Player Stats")]
     public bool canDoubleJump = true;
@@ -68,8 +68,9 @@ public class PlayerController : MonoBehaviour {
     private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
     void Awake() {
+
         rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
+        animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         controls = new InputSystem_Actions();
 
@@ -126,9 +127,14 @@ public class PlayerController : MonoBehaviour {
             StreamerCam.NotifyStreamer(StreamerEvent.HighSpeed);
         }
 
-        if (moveInput.x != 0) {
+        if (moveInput.x != 0 && isGrounded) {
             lastHorizontalDirection = Mathf.Sign(moveInput.x);
+            isWalking = true;
+        } else {
+            isWalking = false;
         }
+
+        animator.SetBool("isWalking", isWalking);
 
         List<AbilityType> keys = new List<AbilityType>(abilityTimers.Keys);
         foreach (AbilityType ability in keys) {
@@ -154,7 +160,8 @@ public class PlayerController : MonoBehaviour {
             rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
             remainingJumps--;
             isGrounded = false;
-        }
+            animator.SetTrigger("hasJumped");
+        } 
     }
 
     public void TakeDamage(int damage, Vector2 explosionPosition) {
@@ -205,7 +212,6 @@ public class PlayerController : MonoBehaviour {
             isCollidingWithDanger = true;
 
             if (!isInvincible) {
-
                 Die();
             }
         }
@@ -378,7 +384,7 @@ public class PlayerController : MonoBehaviour {
         Debug.Log($"Invincible for {time} seconds!");
 
         isInvincible = true;
-       // StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
+        // StreamerCam.NotifyStreamer(StreamerEvent.Invincibility);
 
         invincibilityCoroutine = StartCoroutine(InvincibilityDuration(time));
 
@@ -406,14 +412,20 @@ public class PlayerController : MonoBehaviour {
 
     private void UpdateMovement() {
         if (moveInput.x != 0) {
-            accelerationProgress += Time.deltaTime / accelerationTime;
+            if (isGrounded) {
+                accelerationProgress += Time.deltaTime / accelerationTime;
+            } else {
+                accelerationProgress = Mathf.Max(accelerationProgress - Time.deltaTime / accelerationTime, 0f);
+            }
             float easedProgress = ExponentialEaseOut(accelerationProgress);
             rb.velocity = new Vector2(Mathf.Sign(moveInput.x) * easedProgress * moveSpeed, rb.velocity.y);
 
             spriteRenderer.flipX = moveInput.x < 0;
         } else {
             accelerationProgress = 0f;
-            rb.velocity = new Vector2(0, rb.velocity.y);
+            if (isGrounded) {
+                rb.velocity = new Vector2(0, rb.velocity.y);
+            }
         }
     }
 
