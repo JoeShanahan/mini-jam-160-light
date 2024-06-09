@@ -24,6 +24,7 @@ public class LevelManager : MonoBehaviour
         
         _currentLevel = Instantiate(_levelPrefabs[levelNum]);
         _player.SetSpawnPosition(_currentLevel.SpawnPosition);
+        FindFirstObjectByType<ClampedPlayerFollow>()?.SetBounds(_currentLevel);
     }
 
     // Update is called once per frame
