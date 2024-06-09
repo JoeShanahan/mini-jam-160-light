@@ -290,7 +290,13 @@ public class PlayerController : MonoBehaviour {
         Rigidbody2D bombRb = bombInstance.GetComponent<Rigidbody2D>();
 
         Vector2 playerVelocity = rb.velocity;
-        Vector2 throwForce = new Vector2(power * transform.localScale.x, power);
+
+        float additionalVelocity = 5f;  
+        Vector2 throwForce = new Vector2(
+        playerVelocity.x + Mathf.Sign(playerVelocity.x) * additionalVelocity,
+        power
+    );
+
         bombRb.velocity = playerVelocity + throwForce;
 
         StartCooldown(AbilityType.Bomb);

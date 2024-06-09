@@ -49,6 +49,51 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UseBoost",
+                    "type": "Button",
+                    "id": "95705334-86f2-41ff-ba30-34dcadc7a454",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseBomb",
+                    "type": "Button",
+                    "id": "5937efac-b61e-4993-995e-ab0066f4218c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseInvincibility",
+                    "type": "Button",
+                    "id": "3798df98-bddb-4eef-8d48-d6ab9c345458",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseRocket",
+                    "type": "Button",
+                    "id": "c14a1233-6205-4d9b-811f-68fd117f4837",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseFreeze",
+                    "type": "Button",
+                    "id": "5bb4c8e5-da99-478a-9781-a95b31f7d833",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -280,6 +325,61 @@
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f6e92678-71b2-4e86-a69c-207329067c62",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseBoost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0861552c-9fce-45a3-ac1d-638bf5371da0",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseBomb",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0f8fcec-7f9a-46e1-8f0d-d85f53090110",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseInvincibility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "351c5940-7a37-45dc-b015-b347eb81f05a",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseRocket",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3cbb0ace-1051-46d3-8fdb-59ba1b1e9b1b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseFreeze",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

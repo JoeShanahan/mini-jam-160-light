@@ -72,6 +72,51 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseBoost"",
+                    ""type"": ""Button"",
+                    ""id"": ""95705334-86f2-41ff-ba30-34dcadc7a454"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseBomb"",
+                    ""type"": ""Button"",
+                    ""id"": ""5937efac-b61e-4993-995e-ab0066f4218c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseInvincibility"",
+                    ""type"": ""Button"",
+                    ""id"": ""3798df98-bddb-4eef-8d48-d6ab9c345458"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseRocket"",
+                    ""type"": ""Button"",
+                    ""id"": ""c14a1233-6205-4d9b-811f-68fd117f4837"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseFreeze"",
+                    ""type"": ""Button"",
+                    ""id"": ""5bb4c8e5-da99-478a-9781-a95b31f7d833"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -303,6 +348,61 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f6e92678-71b2-4e86-a69c-207329067c62"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseBoost"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0861552c-9fce-45a3-ac1d-638bf5371da0"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseBomb"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b0f8fcec-7f9a-46e1-8f0d-d85f53090110"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseInvincibility"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""351c5940-7a37-45dc-b015-b347eb81f05a"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseRocket"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3cbb0ace-1051-46d3-8fdb-59ba1b1e9b1b"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseFreeze"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -895,6 +995,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_PreviousAbility = m_Player.FindAction("PreviousAbility", throwIfNotFound: true);
         m_Player_NextAbility = m_Player.FindAction("NextAbility", throwIfNotFound: true);
+        m_Player_UseBoost = m_Player.FindAction("UseBoost", throwIfNotFound: true);
+        m_Player_UseBomb = m_Player.FindAction("UseBomb", throwIfNotFound: true);
+        m_Player_UseInvincibility = m_Player.FindAction("UseInvincibility", throwIfNotFound: true);
+        m_Player_UseRocket = m_Player.FindAction("UseRocket", throwIfNotFound: true);
+        m_Player_UseFreeze = m_Player.FindAction("UseFreeze", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -979,6 +1084,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_PreviousAbility;
     private readonly InputAction m_Player_NextAbility;
+    private readonly InputAction m_Player_UseBoost;
+    private readonly InputAction m_Player_UseBomb;
+    private readonly InputAction m_Player_UseInvincibility;
+    private readonly InputAction m_Player_UseRocket;
+    private readonly InputAction m_Player_UseFreeze;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -988,6 +1098,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @PreviousAbility => m_Wrapper.m_Player_PreviousAbility;
         public InputAction @NextAbility => m_Wrapper.m_Player_NextAbility;
+        public InputAction @UseBoost => m_Wrapper.m_Player_UseBoost;
+        public InputAction @UseBomb => m_Wrapper.m_Player_UseBomb;
+        public InputAction @UseInvincibility => m_Wrapper.m_Player_UseInvincibility;
+        public InputAction @UseRocket => m_Wrapper.m_Player_UseRocket;
+        public InputAction @UseFreeze => m_Wrapper.m_Player_UseFreeze;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1012,6 +1127,21 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @NextAbility.started += instance.OnNextAbility;
             @NextAbility.performed += instance.OnNextAbility;
             @NextAbility.canceled += instance.OnNextAbility;
+            @UseBoost.started += instance.OnUseBoost;
+            @UseBoost.performed += instance.OnUseBoost;
+            @UseBoost.canceled += instance.OnUseBoost;
+            @UseBomb.started += instance.OnUseBomb;
+            @UseBomb.performed += instance.OnUseBomb;
+            @UseBomb.canceled += instance.OnUseBomb;
+            @UseInvincibility.started += instance.OnUseInvincibility;
+            @UseInvincibility.performed += instance.OnUseInvincibility;
+            @UseInvincibility.canceled += instance.OnUseInvincibility;
+            @UseRocket.started += instance.OnUseRocket;
+            @UseRocket.performed += instance.OnUseRocket;
+            @UseRocket.canceled += instance.OnUseRocket;
+            @UseFreeze.started += instance.OnUseFreeze;
+            @UseFreeze.performed += instance.OnUseFreeze;
+            @UseFreeze.canceled += instance.OnUseFreeze;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1031,6 +1161,21 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @NextAbility.started -= instance.OnNextAbility;
             @NextAbility.performed -= instance.OnNextAbility;
             @NextAbility.canceled -= instance.OnNextAbility;
+            @UseBoost.started -= instance.OnUseBoost;
+            @UseBoost.performed -= instance.OnUseBoost;
+            @UseBoost.canceled -= instance.OnUseBoost;
+            @UseBomb.started -= instance.OnUseBomb;
+            @UseBomb.performed -= instance.OnUseBomb;
+            @UseBomb.canceled -= instance.OnUseBomb;
+            @UseInvincibility.started -= instance.OnUseInvincibility;
+            @UseInvincibility.performed -= instance.OnUseInvincibility;
+            @UseInvincibility.canceled -= instance.OnUseInvincibility;
+            @UseRocket.started -= instance.OnUseRocket;
+            @UseRocket.performed -= instance.OnUseRocket;
+            @UseRocket.canceled -= instance.OnUseRocket;
+            @UseFreeze.started -= instance.OnUseFreeze;
+            @UseFreeze.performed -= instance.OnUseFreeze;
+            @UseFreeze.canceled -= instance.OnUseFreeze;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1218,6 +1363,11 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnPreviousAbility(InputAction.CallbackContext context);
         void OnNextAbility(InputAction.CallbackContext context);
+        void OnUseBoost(InputAction.CallbackContext context);
+        void OnUseBomb(InputAction.CallbackContext context);
+        void OnUseInvincibility(InputAction.CallbackContext context);
+        void OnUseRocket(InputAction.CallbackContext context);
+        void OnUseFreeze(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
