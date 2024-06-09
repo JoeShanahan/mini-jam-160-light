@@ -88,7 +88,7 @@ public class TrophyManager : MonoBehaviour
         if (player.UnlockedAchievements.Contains(dat.name))
             return;
         
-        player.UnlockedAchievements.Add(dat.name);
+        player.OnTrophyEarned(dat);
         _gameUI.UnlockTrophy(dat, _allTrophies, player);
     }
     // Update is called once per frame

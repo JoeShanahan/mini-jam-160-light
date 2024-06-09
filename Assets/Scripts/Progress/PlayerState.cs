@@ -10,7 +10,19 @@ public class PlayerState
     public int BestOverallTime;
     public List<string> UnlockedAchievements;
 
+    public int TrophyPoints;
+
     private const string PREFS_KEY = "PlayerState";
+
+    public void OnTrophyEarned(TrophyData dat)
+    {
+        if (dat.Rarity == TrophyData.TrophyClass.Bronze) TrophyPoints += 10;
+        if (dat.Rarity == TrophyData.TrophyClass.Silver) TrophyPoints += 20;
+        if (dat.Rarity == TrophyData.TrophyClass.Gold) TrophyPoints += 50;
+        if (dat.Rarity == TrophyData.TrophyClass.Platinum) TrophyPoints += 280;
+        
+        UnlockedAchievements.Add(dat.name);
+    }
     
     public void SaveToPrefs()
     {
@@ -35,6 +47,8 @@ public class PlayerState
         BestRunTimes = new List<int>();
         BestOverallTime = 0;
         UnlockedAchievements = new List<string>();
+
+        TrophyPoints = 0;
         
         if (PlayerPrefs.HasKey(PREFS_KEY) == false)
             return;
