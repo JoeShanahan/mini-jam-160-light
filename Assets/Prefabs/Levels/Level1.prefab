@@ -40583,7 +40583,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3567994820240310686, guid: 92955960e3d237540af6530841c7e121, type: 3}
       propertyPath: patrolPoints.Array.size
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9074432010640178335, guid: 92955960e3d237540af6530841c7e121, type: 3}
       propertyPath: m_LocalPosition.x
