@@ -191,10 +191,15 @@ public class PlayerController : MonoBehaviour {
 
     private IEnumerator DeathRoutine()
     {
+        isInvincible = true;
         controls.Player.Disable();
         _graphicsObject.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.2f);
+        FindFirstObjectByType<Porthole>()?.ClosePorthole();
+        yield return new WaitForSeconds(1.2f);
+
+        FindFirstObjectByType<Porthole>()?.OpenPorthole();
 
         _graphicsObject.gameObject.SetActive(true);
         controls.Player.Enable();
@@ -206,6 +211,7 @@ public class PlayerController : MonoBehaviour {
         transform.position = _respawnPoint;
         rb.velocity = Vector2.zero;
         isInvincible = false;
+        isCollidingWithDanger = false;
         StartCoroutine(SnapCamRoutine());
     }
 
@@ -225,7 +231,8 @@ public class PlayerController : MonoBehaviour {
             isCollidingWithDanger = true;
 
             if (!isInvincible) {
-
+                
+                Debug.Log($"going to die because of {collision.gameObject.name}");
                 Die();
             }
         }
