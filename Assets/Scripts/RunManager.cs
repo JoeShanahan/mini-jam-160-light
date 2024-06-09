@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,12 +64,25 @@ public class RunManager : MonoBehaviour
     {
         _runState.CurrentWorld ++;
         _gameUI.OnWorldChange(_runState.CurrentWorld, _playerState);
+        _trophyManager.CheckForTrophies(_runState, _playerState);
+
+        StartCoroutine(LevelCompleteRoutine());
+    }
+
+    private IEnumerator LevelCompleteRoutine()
+    {
+        FindFirstObjectByType<Porthole>()?.ClosePorthole();
+        FindFirstObjectByType<PlayerController>()?.SetRigidBodyKinematic(true);
+
+        yield return new WaitForSeconds(1.3f);
+        FindFirstObjectByType<PlayerController>()?.SetRigidBodyKinematic(false);
+
         _levelManager.OnNewLevelReached(_runState.CurrentWorld);
         
         if (_runState.CurrentWorld == _worldCount)
             OnGameComplete();
-        
-        _trophyManager.CheckForTrophies(_runState, _playerState);
+        else
+            FindFirstObjectByType<Porthole>()?.OpenPorthole();
     }
 
     public void OnGameComplete()
