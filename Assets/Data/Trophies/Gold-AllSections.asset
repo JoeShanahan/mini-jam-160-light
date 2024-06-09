@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f60a807b0d324b61a8a5e9999e2892b, type: 3}
   m_Name: Gold-AllSections
   m_EditorClassIdentifier: 
-  DisplayName: Beat the Game
-  Description: Description goes here
+  DisplayName: Time Lord
+  Description: Complete all the individual world time goals
   Rarity: 2
   IsTimeBased: 0
   WorldNumber: 0

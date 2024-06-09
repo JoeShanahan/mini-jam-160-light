@@ -58,9 +58,31 @@ public class TrophyManager : MonoBehaviour
                 }
             }
         }
+        
+        // Trophies based on other trophies
+        foreach (TrophyData dat in _allTrophies)
+        {
+            if (dat.OthersNeeded.Count == 0)
+                continue;
+
+            bool haveAll = true;
+            
+            foreach (TrophyData other in dat.OthersNeeded)
+            {
+                if (player.UnlockedAchievements.Contains(other.name) == false)
+                {
+                    haveAll = false;
+                    break;
+                }
+            }
+
+            if (haveAll)
+            {
+                GetTrophy(dat, player);
+            }
+        }
     }
-
-
+    
     private void GetTrophy(TrophyData dat, PlayerState player)
     {
         player.UnlockedAchievements.Add(dat.name);
