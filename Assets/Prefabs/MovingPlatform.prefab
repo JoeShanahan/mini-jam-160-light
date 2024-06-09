@@ -111,7 +111,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.774938, y: 0.38934916}
+  m_Size: {x: 1.41, y: 0.38934916}
   m_EdgeRadius: 0
 --- !u!61 &5291007798696686847
 BoxCollider2D:
@@ -147,7 +147,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.0011161566, y: 0.19866268}
+  m_Offset: {x: 0.0011161566, y: 0.2}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -157,7 +157,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.686526, y: 0.2455143}
+  m_Size: {x: 1.29, y: 0.1}
   m_EdgeRadius: 0
 --- !u!50 &8547239697987443207
 Rigidbody2D:
@@ -213,8 +213,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.59, y: 2.59, z: 2.59}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5637201791457394597}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
