@@ -21,7 +21,7 @@ MonoBehaviour:
   - DisplayName: Rocket
     AbilityType: 2
     Icon: {fileID: 0}
-    Power: 30
+    Power: 70
     Cooldown: 0
   - DisplayName: Freeze
     AbilityType: 3
