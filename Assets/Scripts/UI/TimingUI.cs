@@ -44,7 +44,7 @@ public class TimingUI : MonoBehaviour
 
         int sumOfBest = 0;
 
-        foreach (int val in playerState.BestRunTimes)
+        foreach (int val in playerState.BestSectionTimes)
         {
             sumOfBest += val;
         }
