@@ -64,10 +64,7 @@ public class PlayerController : MonoBehaviour {
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    private EnemyController[] enemies;
-    private EnemyGoomba[] enemygoombas;
-    private MovingPlatform[] platforms;
-    private Crusher[] crushers;
+
     private Collider2D _myCollider;
     private bool isCollidingWithDanger;
     private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
@@ -93,10 +90,7 @@ public class PlayerController : MonoBehaviour {
         controls.Player.PreviousAbility.performed += ctx => CycleAbility(false);
         controls.Player.ScrollAbility.performed += ctx => CycleAbility(ctx.ReadValue<float>() > 0);
 
-        enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
-        enemygoombas = FindObjectsByType<EnemyGoomba>(FindObjectsSortMode.None);
-        platforms = FindObjectsByType<MovingPlatform>(FindObjectsSortMode.None);
-        crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
+
 
         _myCollider = GetComponent<Collider2D>();
 
@@ -359,6 +353,11 @@ public class PlayerController : MonoBehaviour {
     private void DoFreeze(float time) {
         Debug.Log($"Freeze for {time} seconds!");
 
+        var enemies = FindObjectsByType<EnemyController>(FindObjectsSortMode.None);
+        var enemygoombas = FindObjectsByType<EnemyGoomba>(FindObjectsSortMode.None);
+        var platforms = FindObjectsByType<MovingPlatform>(FindObjectsSortMode.None);
+        var crushers = FindObjectsByType<Crusher>(FindObjectsSortMode.None);
+        
         foreach (var enemy in enemies) {
             enemy.Freeze(time);
         }
