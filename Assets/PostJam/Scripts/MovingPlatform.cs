@@ -13,13 +13,15 @@ namespace MiniJam160.PostJam
 
         private Vector3 _startPosition;
         private float _currentPhase;
-
+        private Rigidbody2D _rb;
+        
         private void Awake()
         {
+            _rb = GetComponent<Rigidbody2D>();
             _startPosition = transform.position;
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             _currentPhase += Time.deltaTime;
 
@@ -34,7 +36,7 @@ namespace MiniJam160.PostJam
 
             float phasePercent = _currentPhase / _cycleLength;
             float adjusted = EaseValue(Mathf.PingPong(phasePercent * 2, 1));
-            transform.position = Vector3.Lerp(_startPosition, endPosition, adjusted);
+            _rb.MovePosition(Vector3.Lerp(_startPosition, endPosition, adjusted));
         }
         
         void OnDrawGizmos()
