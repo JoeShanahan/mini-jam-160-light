@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Gold-CompleteGame-HardTime
   m_EditorClassIdentifier: 
   DisplayName: Speed Runner
-  Description: Complete all three worlds in under 100 seconds
+  Description: Complete all three worlds in under 75 seconds
   Rarity: 2
   IsTimeBased: 1
   WorldNumber: 0
-  TimeToBeat: 100
+  TimeToBeat: 75
   OthersNeeded: []

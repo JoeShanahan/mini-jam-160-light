@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Silver-W2-HardTime
   m_EditorClassIdentifier: 
   DisplayName: Legend of World 2
-  Description: Complete World 2 in under 10 seconds
+  Description: Complete World 2 in under 20 seconds
   Rarity: 1
   IsTimeBased: 1
   WorldNumber: 2
-  TimeToBeat: 10
+  TimeToBeat: 20
   OthersNeeded: []

@@ -26,6 +26,7 @@ public class RunManager : MonoBehaviour
         _playerState.LoadFromPrefs();
 
         _runState.CurrentTimes = new float[_worldCount];
+        _runState.ResetTimes = new float[_worldCount];
         _runState.BestTimes = new float[_worldCount];
         _runState.RunTime = 0;
         _runState.CurrentWorld = 0;
@@ -57,6 +58,7 @@ public class RunManager : MonoBehaviour
         {
             _runState.RunTime += Time.deltaTime;
             _runState.CurrentTimes[_runState.CurrentWorld] += Time.deltaTime;
+            _runState.ResetTimes[_runState.CurrentWorld] += Time.deltaTime;
         }
     }
 
@@ -82,8 +84,7 @@ public class RunManager : MonoBehaviour
         if (_runState.CurrentWorld >= 3)
             return;
 
-        _runState.RunTime = _timeAtStartOfLevel;
-        _runState.CurrentTimes[_runState.CurrentWorld] = 0;
+        _runState.ResetTimes[_runState.CurrentWorld] = 0;
     }
 
     private IEnumerator LevelCompleteRoutine()
@@ -104,6 +105,8 @@ public class RunManager : MonoBehaviour
 
     private bool _isGameComplete;
 
+    
+    
     public void OnGameComplete()
     {
         if (_isGameComplete)
@@ -148,7 +151,7 @@ public class RunManager : MonoBehaviour
         for (int i = 0; i < 3; i++)
         {
             float oldTime = _playerState.BestSectionTimes[i] / 10f;
-            float newTime = _runState.CurrentTimes[i];
+            float newTime = _runState.ResetTimes[i];
 
             if (_playerState.BestSectionTimes[i] == 0 || newTime < oldTime)
             {

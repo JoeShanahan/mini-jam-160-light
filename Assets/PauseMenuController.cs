@@ -21,7 +21,6 @@ public class PauseMenuController : MonoBehaviour
     {
         FindFirstObjectByType<PlayerController>().Die();
         _actualMenu.gameObject.SetActive(false);
-        // FindFirstObjectByType<RunManager>().RevertTimeToStart();
     }
 
     public void ButtonPressRestartRun()

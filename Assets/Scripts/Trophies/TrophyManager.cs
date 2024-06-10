@@ -19,7 +19,7 @@ public class TrophyManager : MonoBehaviour
         // Segment time based trophies
         for (int i = 0; i < run.CurrentWorld; i++)
         {
-            float completeTime = run.CurrentTimes[i];
+            float completeTime = run.ResetTimes[i];
             int worldNum = i + 1;
 
             foreach (TrophyData dat in _allTrophies)

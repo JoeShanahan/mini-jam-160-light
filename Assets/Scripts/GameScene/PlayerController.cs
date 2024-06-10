@@ -251,6 +251,7 @@ public class PlayerController : MonoBehaviour {
         isInvincible = false;
         isCollidingWithDanger = false;
         StartCoroutine(SnapCamRoutine());
+        FindFirstObjectByType<RunManager>().RevertTimeToStart();
 
         _graphicsObject.localPosition = _graphicPos;
         _graphicsObject.localScale = _graphicScale;
