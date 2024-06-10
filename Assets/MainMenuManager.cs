@@ -1,3 +1,4 @@
+using LudumDare55;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -66,6 +67,7 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
+        FindFirstObjectByType<MusicController>().SwapToMenuMusic();
         Application.targetFrameRate = 60;
         
         if (Application.platform == RuntimePlatform.WebGLPlayer)

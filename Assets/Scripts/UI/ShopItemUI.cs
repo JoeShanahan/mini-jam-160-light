@@ -108,8 +108,8 @@ public class ShopItemUI : MonoBehaviour
         if (currentLevel >= 3)
             return;
 
-        // if (points < meta.ShopPrice)
-        //     return;
+        if (points < meta.ShopPrice)
+            return;
 
         _runManager.PlayerState.IncrementAbilityLevel(_abilityType, meta.ShopPrice);
         Refresh(_runManager.PlayerState);

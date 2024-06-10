@@ -399,7 +399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _audio: {fileID: 1233940061}
-  _menuMusic: {fileID: 0}
+  _menuMusic: {fileID: 8300000, guid: 8bd031cab78cb4f7991c50ad54d7e33a, type: 3}
   _gameMusic: {fileID: 8300000, guid: 8044fde30fbec4a648d8ef634188234f, type: 3}
   _maxVolume: 0.2
   _fadeTime: 0.3
