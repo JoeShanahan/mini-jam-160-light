@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bronze-W3-EasyTime
   m_EditorClassIdentifier: 
   DisplayName: World 3 Regular
-  Description: Complete world 3 in under 15 seconds
+  Description: Complete world 3 in under 42 seconds
   Rarity: 0
   IsTimeBased: 1
   WorldNumber: 3
-  TimeToBeat: 15
+  TimeToBeat: 42
   OthersNeeded: []

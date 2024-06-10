@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Silver-W1-HardTime
   m_EditorClassIdentifier: 
   DisplayName: Master of World 1
-  Description: Complete World 1 in under 10 seconds
+  Description: Complete World 1 in under 21 seconds
   Rarity: 1
   IsTimeBased: 1
   WorldNumber: 1
-  TimeToBeat: 10
+  TimeToBeat: 21
   OthersNeeded: []

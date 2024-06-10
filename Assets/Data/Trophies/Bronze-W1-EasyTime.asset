@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bronze-W1-EasyTime
   m_EditorClassIdentifier: 
   DisplayName: World 1 Enjoyer
-  Description: Complete world 1 in under 15 seconds
+  Description: Complete world 1 in under 25 seconds
   Rarity: 0
   IsTimeBased: 1
   WorldNumber: 1
-  TimeToBeat: 15
+  TimeToBeat: 25
   OthersNeeded: []

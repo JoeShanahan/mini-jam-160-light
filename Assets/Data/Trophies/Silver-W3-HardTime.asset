@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Silver-W3-HardTime
   m_EditorClassIdentifier: 
   DisplayName: Hero of World 3
-  Description: Complete World 3 in under 10 seconds
+  Description: Complete World 3 in under 26 seconds
   Rarity: 1
   IsTimeBased: 1
   WorldNumber: 3
-  TimeToBeat: 10
+  TimeToBeat: 28
   OthersNeeded: []

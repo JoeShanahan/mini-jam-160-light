@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Bronze-W2-EasyTime
   m_EditorClassIdentifier: 
   DisplayName: World 2 Fan
-  Description: Complete world 2 in under 15 seconds
+  Description: Complete world 2 in under 26 seconds
   Rarity: 0
   IsTimeBased: 1
   WorldNumber: 2
-  TimeToBeat: 15
+  TimeToBeat: 26
   OthersNeeded: []
