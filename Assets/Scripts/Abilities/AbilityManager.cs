@@ -74,6 +74,9 @@ public class AbilityManager : MonoBehaviour
 
     public void TryUseCurrentAbility()
     {
+        if (FindFirstObjectByType<PauseMenuController>().IsCurrentlyOnScreen)
+            return;
+        
         if (_allAbilities.Count == 0)
             return;
         

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class LevelEndUI : MonoBehaviour
@@ -10,6 +11,12 @@ public class LevelEndUI : MonoBehaviour
     
     [SerializeField] private TMP_Text _thisRunTime;
     [SerializeField] private TMP_Text _lastTimeText;
+    [SerializeField] private RectTransform _defaultButton;
+
+    private void OnEnable()
+    {
+        EventSystem.current.SetSelectedGameObject(_defaultButton.gameObject);
+    }
     
     public void OnGameComplete(RunState run, PlayerState player)
     {

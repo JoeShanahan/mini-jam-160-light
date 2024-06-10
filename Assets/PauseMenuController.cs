@@ -6,6 +6,7 @@ public class PauseMenuController : MonoBehaviour
 {
     [SerializeField] private RectTransform _actualMenu;
 
+    public bool IsCurrentlyOnScreen => _actualMenu.gameObject.activeSelf;
     public void EnableMenu()
     {
         _actualMenu.gameObject.SetActive(true);
