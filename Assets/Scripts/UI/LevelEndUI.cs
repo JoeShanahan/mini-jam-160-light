@@ -46,7 +46,7 @@ public class LevelEndUI : MonoBehaviour
 
     public void ButtonPressAgain()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void ButtonPressShop()
@@ -57,7 +57,7 @@ public class LevelEndUI : MonoBehaviour
 
     public void ButtonPressMenu()
     {
-        
+        SceneManager.LoadScene(0);
     }
     
     private string GetTimeString(float totalSeconds)
