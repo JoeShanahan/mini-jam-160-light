@@ -17,6 +17,14 @@ public class TimeListItem : MonoBehaviour
 
     private bool _isActive;
     private float _lastKnownSeconds;
+    private bool _isFirstRun;
+    
+    public void SetFirstRun(bool isFirstRun)
+    {
+        _isFirstRun = isFirstRun;
+        _timeText.text = "-";
+        _timeDiffText.text = "";
+    }
     
     public void SetHighlightActive(bool isActive)
     {
@@ -26,17 +34,39 @@ public class TimeListItem : MonoBehaviour
 
     public void SetBestTime(string bestTimeString)
     {
+        if (_isFirstRun)
+            return;
+        
         _timeText.text = bestTimeString;
     }
 
     public void LockInTime()
     {
+        if (_isFirstRun)
+        {
+            _timeText.text = GetTimeString(_lastKnownSeconds);
+            return;
+        }
+
         SetPlusMinusTime(_lastKnownSeconds);
+    }
+    
+    private string GetTimeString(float totalSeconds)
+    {
+        int minutes = (int) totalSeconds / 60;
+        int seconds = (int) totalSeconds - (minutes * 60);
+        int ms = (int)((totalSeconds - (int) totalSeconds) * 10);
+
+        string secondsString = seconds.ToString("D2");
+        return $"{minutes}:{secondsString}.{ms}";
     }
 
     public void SetPlusMinusTime(float seconds)
     {
         _lastKnownSeconds = seconds;
+     
+        if (_isFirstRun)
+            return;
         
         if (_isActive && seconds < -5)
         {

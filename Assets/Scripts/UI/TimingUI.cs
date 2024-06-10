@@ -8,6 +8,7 @@ public class TimingUI : MonoBehaviour
     [SerializeField] private TMP_Text _personalBestText;
     [SerializeField] private TMP_Text _sumOfBestText;
     [SerializeField] private List<TimeListItem> _listItems;
+    [SerializeField] private RectTransform[] _firstTimeDisable;
     
     public void UpdateTimes(RunState runState)
     {
@@ -25,10 +26,23 @@ public class TimingUI : MonoBehaviour
 
     public void OnWorldChange(int newWorld, PlayerState playerState)
     {
+        if (newWorld == 0)
+        {
+            if (playerState.BestOverallTime == 0)
+            {
+                foreach (RectTransform rect in _firstTimeDisable)
+                    rect.gameObject.SetActive(false);
+            }
+        }
+        
         for (int i = 0; i < _listItems.Count; i++)
         {
             _listItems[i].SetHighlightActive(i == newWorld);
 
+            if (newWorld == 0 && playerState.BestOverallTime == 0)
+                _listItems[i].SetFirstRun(true);
+
+            
             if (i == newWorld - 1)
                 _listItems[i].LockInTime();
             

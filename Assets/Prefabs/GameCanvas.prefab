@@ -5718,6 +5718,10 @@ MonoBehaviour:
   - {fileID: 2142656195679036747}
   - {fileID: 6842281325960403790}
   - {fileID: 1990523009491368926}
+  _firstTimeDisable:
+  - {fileID: 2307942909097409950}
+  - {fileID: 2236319687366119349}
+  - {fileID: 883398252268955444}
 --- !u!1 &2145917869732157355
 GameObject:
   m_ObjectHideFlags: 0
