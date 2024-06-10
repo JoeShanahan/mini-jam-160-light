@@ -127,6 +127,7 @@ public class ShopItemUI : MonoBehaviour
             return;
 
         _runManager.PlayerState.HasUnlimited = true;
+        _runManager.PlayerState.TrophyPoints -= 260;
         _runManager.PlayerState.SaveToPrefs();
         Refresh(_runManager.PlayerState);
         FindFirstObjectByType<Shop>().UpdateCurrencyText();

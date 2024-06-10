@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using LudumDare55;
 using UnityEngine;
 
 public class RunManager : MonoBehaviour
@@ -20,6 +21,7 @@ public class RunManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        FindFirstObjectByType<MusicController>().SwapToGameMusic();
         Application.targetFrameRate = 60;
         _playerState.LoadFromPrefs();
 

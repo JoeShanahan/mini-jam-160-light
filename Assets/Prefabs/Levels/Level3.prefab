@@ -41158,6 +41158,10 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1.875
       objectReference: {fileID: 0}
+    - target: {fileID: 5291007798696686847, guid: 096a1f5cc6388e2408c3ee37217e7707, type: 3}
+      propertyPath: m_Size.x
+      value: 5.8
+      objectReference: {fileID: 0}
     - target: {fileID: 5637201791457394597, guid: 096a1f5cc6388e2408c3ee37217e7707, type: 3}
       propertyPath: m_LocalPosition.x
       value: 222.73
@@ -41201,6 +41205,10 @@ PrefabInstance:
     - target: {fileID: 6801875473026494580, guid: 096a1f5cc6388e2408c3ee37217e7707, type: 3}
       propertyPath: m_Name
       value: MovingPlatform (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730581768403372566, guid: 096a1f5cc6388e2408c3ee37217e7707, type: 3}
+      propertyPath: m_Size.x
+      value: 6.06
       objectReference: {fileID: 0}
     - target: {fileID: 7789573831403537489, guid: 096a1f5cc6388e2408c3ee37217e7707, type: 3}
       propertyPath: waypoints.Array.size
