@@ -72,7 +72,14 @@ public class PlayerController : MonoBehaviour {
     private bool isCollidingWithDanger;
     private Dictionary<AbilityType, float> abilityTimers = new Dictionary<AbilityType, float>();
 
-    void Awake() {
+    private Vector3 _graphicPos;
+    private Vector3 _graphicScale;
+    
+    void Awake()
+    {
+        _graphicPos = _graphicsObject.localPosition;
+        _graphicScale = _graphicsObject.localScale;
+        
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -218,16 +225,23 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(DeathRoutine());
     }
 
-    private IEnumerator DeathRoutine() {
+    private IEnumerator DeathRoutine()
+    {
+        Debug.LogWarning("Starting the death routine");
         isInvincible = true;
         SetRigidBodyKinematic(true);
         controls.Player.Disable();
         _graphicsObject.gameObject.SetActive(false);
-
+        animator.enabled = false;
+        _graphicsObject.localPosition = _graphicPos;
+        _graphicsObject.localScale = _graphicScale;
+        
         yield return new WaitForSeconds(0.2f);
         FindFirstObjectByType<Porthole>()?.ClosePorthole();
         yield return new WaitForSeconds(1.2f);
-
+        _graphicsObject.localPosition = _graphicPos;
+        _graphicsObject.localScale = _graphicScale;
+        
         FindFirstObjectByType<Porthole>()?.OpenPorthole();
 
         _graphicsObject.gameObject.SetActive(true);
@@ -243,6 +257,10 @@ public class PlayerController : MonoBehaviour {
         isInvincible = false;
         isCollidingWithDanger = false;
         StartCoroutine(SnapCamRoutine());
+
+        _graphicsObject.localPosition = _graphicPos;
+        _graphicsObject.localScale = _graphicScale;
+        animator.enabled = true;
     }
 
     void OnCollisionEnter2D(Collision2D collision) {
@@ -409,8 +427,13 @@ public class PlayerController : MonoBehaviour {
 
         StartCooldown(AbilityType.Boost);
 
-        StartCoroutine(HorizontalBoostRoutine(0.5f));
+        if (_horzBoostRoutine != null)
+            StopCoroutine(_horzBoostRoutine);
+        
+        _horzBoostRoutine = StartCoroutine(HorizontalBoostRoutine(0.5f));
     }
+
+    private Coroutine _horzBoostRoutine;
 
     private IEnumerator HorizontalBoostRoutine(float duration) {
         isHorizontalBoosting = true;
@@ -419,6 +442,7 @@ public class PlayerController : MonoBehaviour {
         yield return new WaitForSeconds(duration - 0.1f);
         rb.gravityScale = 1;
         isHorizontalBoosting = false;
+        _horzBoostRoutine = null;
     }
 
     private void DoVerticalBoost(float power) {

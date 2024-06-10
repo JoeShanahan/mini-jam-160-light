@@ -20,6 +20,15 @@ public class AbilityData : ScriptableObject {
     public IEnumerable<AbilityDataItem> AllAbilities => _abilities;
     [SerializeField] private List<AbilityDataItem> _abilities;
 
+    public AbilityDataItem GetAbilityMeta(AbilityType atype) {
+        foreach (var ability in _abilities)
+        {
+            if (ability.AbilityType == atype)
+                return ability;
+        }
+        return null;
+    }
+    
     public float GetPower(AbilityType atype) {
         foreach (var ability in _abilities) {
             if (ability.AbilityType == atype)

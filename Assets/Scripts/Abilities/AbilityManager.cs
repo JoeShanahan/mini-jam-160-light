@@ -27,6 +27,7 @@ public class AbilityManager : MonoBehaviour
             }
         }
         
+        FindFirstObjectByType<AbilitySelectUI>().Init(_currentCounts);
         _startOfLevelCounts = new Dictionary<AbilityType, int>(_currentCounts);
     }
 
@@ -41,7 +42,7 @@ public class AbilityManager : MonoBehaviour
 
         foreach (var ab in _allAbilities)
         {
-            FindFirstObjectByType<AbilitySelectUI>().Refresh(_allAbilities[_abilityIdx], _currentCounts[ab]);
+            FindFirstObjectByType<AbilitySelectUI>().Refresh(ab, _currentCounts[ab]);
         }
     }
 

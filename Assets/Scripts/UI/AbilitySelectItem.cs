@@ -22,14 +22,18 @@ public class AbilitySelectItem : MonoBehaviour
         Deselect(0);
     }
 
-    public void SetAbility(AbilityData.AbilityDataItem ability)
+    public void SetAbility(AbilityData.AbilityDataItem ability, int startPips)
     {
         _abilityImage.sprite = ability.Icon;
         Ability = ability;
-        
+
+        int i = 0;
         foreach (Image img in _dots)
         {
+            img.gameObject.SetActive(i < startPips);
+            
             img.color = ability.Color;
+            i++;
         }
     }
 
@@ -57,7 +61,10 @@ public class AbilitySelectItem : MonoBehaviour
 
     public void Refresh(int count)
     {
-        Debug.LogWarning($"{Ability.AbilityType}: is now {count}");
+        for (int i = 0; i < 3; i++)
+        {
+            _dots[i].color = i < count ? Ability.Color : Color.Lerp(Ability.Color, Color.black, 0.8f);
+        }
     }
 
     // Update is called once per frame

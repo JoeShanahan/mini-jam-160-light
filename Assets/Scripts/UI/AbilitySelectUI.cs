@@ -8,18 +8,23 @@ public class AbilitySelectUI : MonoBehaviour
 
     private List<AbilitySelectItem> _spawnedItems = new();
     
+    private RunManager _runManager => FindFirstObjectByType<RunManager>();
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Init(Dictionary<AbilityType, int> abilities)
     {
-        foreach (AbilityData.AbilityDataItem item in _abilityData.AllAbilities)
+        foreach ((var key, int level) in abilities)
         {
             AbilitySelectItem newItem = Instantiate(_template, _template.transform.parent);
-            newItem.SetAbility(item);
+            newItem.SetAbility(_abilityData.GetAbilityMeta(key), level);
             
             _spawnedItems.Add(newItem);
         }
         
         _template.gameObject.SetActive(false);
+        
+        if (_spawnedItems.Count > 0)
+            _spawnedItems[0].Select();
     }
 
     public void Refresh(AbilityType ability, int amount)
