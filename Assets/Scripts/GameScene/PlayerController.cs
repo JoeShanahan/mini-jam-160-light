@@ -206,7 +206,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    void Die() {
+    public void Die() {
         if (isInvincible) {
             Debug.Log("Player can't die, go wild!");
             return;

@@ -25,8 +25,14 @@ public class DebugToggler : MonoBehaviour {
         }
     }
 
+    private void PauseMenuToggle(InputAction.CallbackContext context)
+    {
+        FindFirstObjectByType<PauseMenuController>().EnableMenu();
+    }
+
     private void OnEnable() {
         playerInput.actions["DebugMenuToggle"].performed += DebugMenuToggle;
+        playerInput.actions["PauseMenuToggle"].performed += PauseMenuToggle;
     }
 
     private void OnDisable() {

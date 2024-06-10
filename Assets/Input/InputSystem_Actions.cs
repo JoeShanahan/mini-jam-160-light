@@ -144,6 +144,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""PauseMenuToggle"",
+                    ""type"": ""Button"",
+                    ""id"": ""52712958-53ef-4061-882f-81c9c6d8845f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -463,6 +472,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""30eca8c4-001d-4ea7-8391-d1f42c1c66ae"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""PauseMenuToggle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""97567bbf-673d-4e04-9af4-8bfe6f6e7302"",
+                    ""path"": ""*/{Menu}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Gamepad;Keyboard&Mouse"",
+                    ""action"": ""PauseMenuToggle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1063,6 +1094,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_ScrollAbility = m_Player.FindAction("ScrollAbility", throwIfNotFound: true);
         m_Player_DebugMenuToggle = m_Player.FindAction("DebugMenuToggle", throwIfNotFound: true);
         m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
+        m_Player_PauseMenuToggle = m_Player.FindAction("PauseMenuToggle", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1155,6 +1187,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ScrollAbility;
     private readonly InputAction m_Player_DebugMenuToggle;
     private readonly InputAction m_Player_Pause;
+    private readonly InputAction m_Player_PauseMenuToggle;
     public struct PlayerActions
     {
         private @InputSystem_Actions m_Wrapper;
@@ -1172,6 +1205,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         public InputAction @ScrollAbility => m_Wrapper.m_Player_ScrollAbility;
         public InputAction @DebugMenuToggle => m_Wrapper.m_Player_DebugMenuToggle;
         public InputAction @Pause => m_Wrapper.m_Player_Pause;
+        public InputAction @PauseMenuToggle => m_Wrapper.m_Player_PauseMenuToggle;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1220,6 +1254,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pause.started += instance.OnPause;
             @Pause.performed += instance.OnPause;
             @Pause.canceled += instance.OnPause;
+            @PauseMenuToggle.started += instance.OnPauseMenuToggle;
+            @PauseMenuToggle.performed += instance.OnPauseMenuToggle;
+            @PauseMenuToggle.canceled += instance.OnPauseMenuToggle;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1263,6 +1300,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Pause.started -= instance.OnPause;
             @Pause.performed -= instance.OnPause;
             @Pause.canceled -= instance.OnPause;
+            @PauseMenuToggle.started -= instance.OnPauseMenuToggle;
+            @PauseMenuToggle.performed -= instance.OnPauseMenuToggle;
+            @PauseMenuToggle.canceled -= instance.OnPauseMenuToggle;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1458,6 +1498,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         void OnScrollAbility(InputAction.CallbackContext context);
         void OnDebugMenuToggle(InputAction.CallbackContext context);
         void OnPause(InputAction.CallbackContext context);
+        void OnPauseMenuToggle(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
