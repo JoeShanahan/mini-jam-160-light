@@ -18,6 +18,11 @@ public class TimeListItem : MonoBehaviour
     private bool _isActive;
     private float _lastKnownSeconds;
     private bool _isFirstRun;
+
+    private void Start()
+    {
+        _timeDiffText.text = "";
+    }
     
     public void SetFirstRun(bool isFirstRun)
     {

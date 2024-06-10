@@ -130,10 +130,13 @@ public class RunManager : MonoBehaviour
         {
             _playerState.BestRunTimes = new List<int>();
             _playerState.BestOverallTime = (int)(_runState.RunTime * 10);
+
+            int runningTotal = 0;
             
             foreach (float f in _runState.CurrentTimes)
             {
-                _playerState.BestRunTimes.Add((int) (f * 10));
+                runningTotal += (int)(f * 10);
+                _playerState.BestRunTimes.Add(runningTotal);
             }
         }
 
