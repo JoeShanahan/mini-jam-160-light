@@ -64,14 +64,26 @@ public class RunManager : MonoBehaviour
     {
         Start();
     }
+
+    private float _timeAtStartOfLevel = 0;
     
     public void OnLevelComplete()
     {
+        _timeAtStartOfLevel = _runState.RunTime;
         _runState.CurrentWorld ++;
         _gameUI.OnWorldChange(_runState.CurrentWorld, _playerState);
         _trophyManager.CheckForTrophies(_runState, _playerState);
 
         StartCoroutine(LevelCompleteRoutine());
+    }
+
+    public void RevertTimeToStart()
+    {
+        if (_runState.CurrentWorld >= 3)
+            return;
+
+        _runState.RunTime = _timeAtStartOfLevel;
+        _runState.CurrentTimes[_runState.CurrentWorld] = 0;
     }
 
     private IEnumerator LevelCompleteRoutine()
