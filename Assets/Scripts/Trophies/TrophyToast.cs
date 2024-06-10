@@ -19,6 +19,7 @@ public class TrophyToast : MonoBehaviour
     [SerializeField] private Image _trophySprite;
     [SerializeField] private TMP_Text _topText;
     [SerializeField] private TMP_Text _bottomText;
+    [SerializeField] private Image _gradientBg;
 
     [Header("Colors")] 
     [SerializeField] private Color _bronzeColor;
@@ -33,11 +34,31 @@ public class TrophyToast : MonoBehaviour
     {
         _toShowList.Enqueue(dat);
     }
+
+    [SerializeField] private bool _isInList;
+
+    public void SetTrophyInList(TrophyData dat, bool isEarned)
+    {
+        _trophySprite.color = GetColor(dat);
+        _trophyFg.color = Color.Lerp(GetColor(dat), Color.black, 0.2f);
+        _trophyBg.color = Color.Lerp(GetColor(dat), Color.white, 0.2f);
+
+        _topText.text = dat.DisplayName;
+        _bottomText.text = dat.Description;
+        
+        _trophyBg.gameObject.SetActive(isEarned);
+        _gradientBg.gameObject.SetActive(isEarned);
+        GetComponent<Image>().enabled = isEarned;
+    }
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _rt = GetComponent<RectTransform>();
+
+        if (_isInList)
+            return;
+        
         _rt.DOAnchorPosX(_inactiveX, 0);
         StartCoroutine(TrophyShowRoutine());
     }

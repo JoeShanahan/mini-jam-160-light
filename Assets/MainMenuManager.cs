@@ -31,6 +31,8 @@ public class MainMenuManager : MonoBehaviour
                 PlayerPrefs.DeleteKey("PlayerState");
                 PlayerPrefs.Save();
             }
+            
+            FindFirstObjectByType<TrophyMenu>().Start();
         }
 
         if (wipeCount < -5)
