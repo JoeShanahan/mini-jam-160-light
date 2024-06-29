@@ -24,5 +24,10 @@ namespace MiniJam160.PostJam
         {
             return groundContactCount > 0;
         }
+
+        public void OnValidate()
+        {
+            minGroundDotProduct = Mathf.Cos(maxSlopeAngle * Mathf.Deg2Rad);
+        }
     }
 }

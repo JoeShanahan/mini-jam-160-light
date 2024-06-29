@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
 namespace MiniJam160.PostJam
 {
 	public class PersonMovement : MonoBehaviour
@@ -21,6 +20,12 @@ namespace MiniJam160.PostJam
 		private void Awake()
 		{
 			_rb = GetComponent<Rigidbody2D>();
+			OnValidate();
+		}
+
+		private void OnValidate()
+		{
+			_ground.OnValidate();
 		}
 		
 		public void SetDesiredMove(float move)
@@ -33,18 +38,35 @@ namespace MiniJam160.PostJam
 		{
 			_move.velocity = _rb.velocity;
 
-			float acceleration = _ground.IsGrounded() ? _move.maxAcceleration : _move.maxAirAcceleration;
-			float maxSpeedChange = acceleration * Time.deltaTime;
+			UpdateState();
+			AdjustVelocity();
 
+			_rb.velocity = _move.velocity;
+			ClearState();
+		}
+
+		private void UpdateState()
+		{
+			if (_ground.IsGrounded())
+			{
+				_ground.contactNormal.Normalize();
+			}
+			else
+			{
+				_ground.contactNormal = Vector2.up;
+			}
+			
 			if (_jump.isRequested)
 			{
 				_jump.isRequested = false;
 				Jump();
 			}
-			
-			_move.velocity.x = Mathf.MoveTowards(_move.velocity.x, _move.desiredVelocity.x, maxSpeedChange);
-			_rb.velocity = _move.velocity;
+		}
+
+		private void ClearState()
+		{
 			_ground.groundContactCount = 0;
+			_ground.contactNormal = Vector2.zero;
 		}
 
 		public void SetJumpRequested(bool jumpPressed)
@@ -56,7 +78,31 @@ namespace MiniJam160.PostJam
 		{
 			if (_ground.IsGrounded())
 			{
-				_move.velocity.y += _jump.Speed;
+				float jumpSpeed = _jump.Speed;
+				float alignedSpeed = Vector2.Dot(_move.velocity, _ground.contactNormal);
+
+				if (alignedSpeed > 0f)
+				{
+					jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0);
+				}
+
+				Vector3 endPos = transform.position;
+				endPos.x += _ground.contactNormal.x;
+				endPos.y += _ground.contactNormal.y;
+
+				Vector3 ogVel = transform.position;
+				ogVel.x += _move.velocity.x;
+				ogVel.y += _move.velocity.y;
+				
+				Debug.DrawLine(transform.position, endPos, Color.red, 3);
+				_move.velocity += _ground.contactNormal * jumpSpeed;
+				
+				Vector3 newVel = transform.position;
+				newVel.x += _move.velocity.x;
+				newVel.y += _move.velocity.y;
+				
+				Debug.DrawLine(transform.position, newVel, Color.blue, 3);
+				Debug.DrawLine(transform.position, ogVel, Color.green, 3);
 			}
 		}
 		
@@ -70,6 +116,24 @@ namespace MiniJam160.PostJam
 			EvaluateCollision(collision);
 		}
 		
+		private Vector2 ProjectOnContactPlane (Vector2 vector) 
+		{
+			return vector - _ground.contactNormal * Vector2.Dot(vector, _ground.contactNormal);
+		}
+		
+		private void AdjustVelocity () 
+		{
+			Vector2 xAxis = ProjectOnContactPlane(Vector2.right).normalized;
+			float currentX = Vector3.Dot(_move.velocity, xAxis);
+			
+			float acceleration = _ground.IsGrounded() ? _move.maxAcceleration : _move.maxAirAcceleration;
+			float maxSpeedChange = acceleration * Time.deltaTime;
+
+			float newX = Mathf.MoveTowards(currentX, _move.desiredVelocity.x, maxSpeedChange);
+			_move.velocity += xAxis * (newX - currentX);
+		}
+
+		
 		private void EvaluateCollision (Collision2D collision)
 		{
 			_ground.groundContactCount = 0;
@@ -78,9 +142,10 @@ namespace MiniJam160.PostJam
 			{
 				Vector2 normal = collision.GetContact(i).normal;
 				
-				if (normal.y >= 0.9f)
+				if (normal.y >= _ground.minGroundDotProduct)
 				{
 					_ground.groundContactCount ++;
+					_ground.contactNormal += normal;
 				}
 					
 			}
