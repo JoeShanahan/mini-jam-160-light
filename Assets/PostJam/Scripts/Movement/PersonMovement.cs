@@ -36,8 +36,6 @@ namespace MiniJam160.PostJam
 
 		private void FixedUpdate()
 		{
-			_move.velocity = _rb.velocity;
-
 			UpdateState();
 			AdjustVelocity();
 
@@ -47,6 +45,8 @@ namespace MiniJam160.PostJam
 
 		private void UpdateState()
 		{
+			_move.velocity = _rb.velocity;
+
 			if (_ground.IsGrounded())
 			{
 				_ground.contactNormal.Normalize();
@@ -80,29 +80,14 @@ namespace MiniJam160.PostJam
 			{
 				float jumpSpeed = _jump.Speed;
 				float alignedSpeed = Vector2.Dot(_move.velocity, _ground.contactNormal);
-
+				
 				if (alignedSpeed > 0f)
 				{
 					jumpSpeed = Mathf.Max(jumpSpeed - alignedSpeed, 0);
 				}
-
-				Vector3 endPos = transform.position;
-				endPos.x += _ground.contactNormal.x;
-				endPos.y += _ground.contactNormal.y;
-
-				Vector3 ogVel = transform.position;
-				ogVel.x += _move.velocity.x;
-				ogVel.y += _move.velocity.y;
 				
-				Debug.DrawLine(transform.position, endPos, Color.red, 3);
+				_move.velocity.y = 0;
 				_move.velocity += _ground.contactNormal * jumpSpeed;
-				
-				Vector3 newVel = transform.position;
-				newVel.x += _move.velocity.x;
-				newVel.y += _move.velocity.y;
-				
-				Debug.DrawLine(transform.position, newVel, Color.blue, 3);
-				Debug.DrawLine(transform.position, ogVel, Color.green, 3);
 			}
 		}
 		
